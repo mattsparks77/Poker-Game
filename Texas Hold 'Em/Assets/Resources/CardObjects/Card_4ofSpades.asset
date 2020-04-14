@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13e86c4064a1648eabe3a0ffc9fc1396, type: 3}
+  m_Name: Card_4ofSpades
+  m_EditorClassIdentifier: 
+  value: 4
+  suitValue: 3
+  suit: S
+  prefab: {fileID: 1838786259332564, guid: a98e0b642c98242cc9ccd3d299b85591, type: 3}
+  path: Assets/CardObjects/Card_ 4ofSpades.asset
+  name: 4ofSpades

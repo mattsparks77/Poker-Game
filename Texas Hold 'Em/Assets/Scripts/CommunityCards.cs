@@ -1,0 +1,36 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class CommunityCards : MonoBehaviour
+{
+    public static CommunityCards instance;
+    public static Transform[] placeholders = new Transform[5];
+    public static int nextEmptySpot = 0;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            Initialize();
+        }
+        else if (instance != this)
+        {
+            Debug.Log("Instance already exists, destroying object!");
+            Destroy(this);
+        }
+    }
+
+
+
+    public void Initialize()
+    {
+        placeholders[0] = this.transform.GetChild(0);
+        placeholders[1] = this.transform.GetChild(1);
+        placeholders[2] = this.transform.GetChild(2);
+        placeholders[3] = this.transform.GetChild(3);
+        placeholders[4] = this.transform.GetChild(4);
+
+    }
+}

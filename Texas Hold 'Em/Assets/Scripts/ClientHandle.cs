@@ -1,0 +1,243 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Net;
+using UnityEngine;
+
+/// <summary>
+/// Handles data received from the server
+/// </summary>
+public class ClientHandle : MonoBehaviour
+{
+    public static void Welcome(Packet _packet)
+    {
+        string _msg = _packet.ReadString();
+        int _myId = _packet.ReadInt();
+
+
+        Debug.Log($"Message from server: {_msg}");
+        Client.instance.myId = _myId;
+        ClientSend.WelcomeReceived();
+
+        // Now that we have the client's id, connect UDP
+        Client.instance.udp.Connect(((IPEndPoint)Client.instance.tcp.socket.Client.LocalEndPoint).Port);
+    }
+
+    public static void SpawnPlayer(Packet _packet)
+    {
+        int _id = _packet.ReadInt();
+        string _username = _packet.ReadString();
+        Vector3 _position = _packet.ReadVector3();
+        Quaternion _rotation = _packet.ReadQuaternion();
+
+        GameManager.instance.SpawnPlayer(_id, _username);
+    }
+
+    public static void ReceiveCardToCommunity(Packet _packet)
+    {
+        int suit = _packet.ReadInt();
+        int rank = _packet.ReadInt();
+
+        CardDealer.instance.AddCardToCommunity(suit, rank);
+    }
+
+    public static void RoundReset(Packet _packet)
+    {
+        CardDealer.instance.DeleteCardsInPlay();
+        CommunityCards.nextEmptySpot = 0;
+        CardManager.instance.communityCards.Clear();
+
+        foreach (PlayerManager p in GameManager.players.Values)
+        {
+            p.Reset();
+        }
+    }
+
+    public static void ReceiveCard(Packet _packet)
+    {
+        int _id = _packet.ReadInt();
+        int suit = _packet.ReadInt();
+        int rank = _packet.ReadInt();
+        //Debug.Log($"Receiving Card.. ID: {_id}, Suit: {suit}, Rank: {rank}");
+        GameManager.players[_id].AddCardToHand(suit, rank);
+        
+        //if (_id == Client.instance.myId)
+        //{
+        //    GameManager.players[_id].AddCardToHand(suit, rank);
+        //}
+        
+    }
+
+    public static void SetChips(Packet _packet)
+    {
+        int _id = _packet.ReadInt();
+        int _setAmount = _packet.ReadInt();
+        int _subtractAmount = _packet.ReadInt();
+        int _addAmount = _packet.ReadInt();
+        GameManager.players[_id].AddChips(_addAmount);
+        GameManager.players[_id].SubtractChips(_addAmount);
+        GameManager.players[_id].SetChips(_addAmount);
+    }
+
+
+    public static void PlayerAction(Packet _packet)
+    {
+        int _id = _packet.ReadInt();
+
+        bool isFold = _packet.ReadBool();
+        bool isCheckCall = _packet.ReadBool();
+        bool isRaise = _packet.ReadBool();
+        int raiseAmount = _packet.ReadInt();
+
+        GameManager.players[_id].isFolding = isFold;
+        GameManager.players[_id].isCheckCalling = isCheckCall;
+        GameManager.players[_id].isRaising = isRaise;
+        GameManager.players[_id].raiseAmount = raiseAmount;
+        if (isFold)
+        {
+            UIManager.instance.playerTurnText.text = GameManager.players[_id].username + " folded.";
+            Debug.Log($"[FOLDED] Received player action: Username: { GameManager.players[_id].username}, ID: {_id} , Action: Folded");
+
+
+        }
+        else if (isRaise)
+        {
+            UIManager.instance.playerTurnText.text = GameManager.players[_id].username + " raised $" + raiseAmount;
+
+            GameManager.players[_id].SubtractChips(raiseAmount);
+            GameManager.players[_id].amountInPot += raiseAmount;
+            Debug.Log($"[RAISED] Received player action: Username: { GameManager.players[_id].username}, ID: {_id} , Action: Raise");
+
+            Debug.Log($"Player now has: { GameManager.players[_id].chipTotal}");
+
+        }
+        else if (isCheckCall)
+        {
+            UIManager.instance.playerTurnText.text = GameManager.players[_id].username + " checked.";
+            GameManager.players[_id].SubtractChips(GameState.instance.currentBet);
+            GameManager.players[_id].amountInPot += GameState.instance.currentBet;
+            Debug.Log($"[CHECK] Received player action: Username: { GameManager.players[_id].username}, ID: {_id} , Action: Check");
+
+            // GameManager.players[_id].
+        }
+
+        UIManager.instance.SetChipTotalText();
+
+
+        //To Do Increment Game Turn to next player. 
+        //
+    }
+
+
+    public static void PokerState(Packet _packet)
+    {
+
+        GameState.instance.currentBet = _packet.ReadInt();
+        GameState.instance.amountInPot = _packet.ReadInt();
+        GameState.instance.currentTurnIndex = _packet.ReadInt();
+
+        Debug.Log($"Current Bet: {GameState.instance.currentBet}");
+        Debug.Log($"Amount in Pot: {GameState.instance.amountInPot}");
+        Debug.Log($"Current Index: {GameState.instance.currentTurnIndex}");
+
+        UIManager.instance.UpdateGameStateUI();
+        UIManager.instance.CheckIsTurn();
+        UIManager.instance.SetPlayerTurnText();
+        //GameManager.instance.SpawnPlayer(_id, _username);
+    }
+
+    public static void PlayerTablePosition(Packet _packet)
+    {
+        int _id = _packet.ReadInt();
+        int _tableIndex = _packet.ReadInt();
+        GameState.Initialize();
+        if (true)//GameState.playersAtTable[_tableIndex] != null)
+        {
+            //If clients removes himself from the table then -1 is sent and client is removed from playersInGameList.
+            if (_tableIndex == -1)
+            {
+                GameState.seats[GameManager.players[_id].tableIndex].isOccupied = false;
+                GameState.seats[GameManager.players[_id].tableIndex].DisplayJoinButton(true);
+                GameManager.players[_id].tableIndex = -1;
+                GameState.playersAtTable.Remove(GameManager.players[_id]);
+
+            }
+            else
+            {
+                //GameState.seats[GameManager.players[_id].tableIndex].isOccupied = true;
+                //GameState.seats[GameManager.players[_id].tableIndex].DisplayJoinButton(false);
+
+                GameManager.players[_id].tableIndex = _tableIndex;
+                GameState.playersAtTable[_tableIndex] = GameManager.players[_id];
+            }
+           
+        }
+    }
+
+
+    public static void PlayerPosition(Packet _packet)
+    {
+        int _id = _packet.ReadInt();
+        Vector3 _position = _packet.ReadVector3();
+        if (!GameManager.players.ContainsKey(_id)) { return; }
+
+        GameManager.players[_id].transform.position = _position;
+
+    }
+
+    public static void PlayerRotation(Packet _packet)
+    {
+        int _id = _packet.ReadInt();
+        Quaternion _rotation = _packet.ReadQuaternion();
+        if (!GameManager.players.ContainsKey(_id)) { return; }
+        GameManager.players[_id].transform.rotation = _rotation;
+
+    }
+
+    public static void PlayerDisconnected(Packet _packet)
+    {
+        int _id = _packet.ReadInt();
+
+        Destroy(GameManager.players[_id].gameObject);
+        GameManager.players.Remove(_id);
+    }
+
+    //public static void PlayerHealth(Packet _packet)
+    //{
+    //    int _id = _packet.ReadInt();
+    //    float _health = _packet.ReadFloat();
+
+    //    //GameManager.players[_id].SetHealth(_health);
+    //}
+
+    public static void PlayerRespawned(Packet _packet)
+    {
+        int _id = _packet.ReadInt();
+
+       // GameManager.players[_id].Respawn();
+    }
+
+//    public static void CreateItemSpawner(Packet _packet)
+//    {
+//        int _spawnerId = _packet.ReadInt();
+//        Vector3 _spawnerPosition = _packet.ReadVector3();
+//        bool _hasItem = _packet.ReadBool();
+
+//        GameManager.instance.CreateItemSpawner(_spawnerId, _spawnerPosition, _hasItem);
+//    }
+
+//    public static void ItemSpawned(Packet _packet)
+//    {
+//        int _spawnerId = _packet.ReadInt();
+
+//        GameManager.itemSpawners[_spawnerId].ItemSpawned();
+//    }
+
+//    public static void ItemPickedUp(Packet _packet)
+//    {
+//        int _spawnerId = _packet.ReadInt();
+//        int _byPlayer = _packet.ReadInt();
+
+//       // GameManager.itemSpawners[_spawnerId].ItemPickedUp();
+//       // GameManager.players[_byPlayer].itemCount++;
+//    }
+}

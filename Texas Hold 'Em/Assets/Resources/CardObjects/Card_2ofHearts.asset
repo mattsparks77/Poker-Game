@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13e86c4064a1648eabe3a0ffc9fc1396, type: 3}
+  m_Name: Card_2ofHearts
+  m_EditorClassIdentifier: 
+  value: 2
+  suitValue: 2
+  suit: H
+  prefab: {fileID: 1061276986448738, guid: 877eb953a63fe45b99ac83665f5e588c, type: 3}
+  path: Assets/CardObjects/Card_ 2ofHearts.asset
+  name: 2ofHearts
