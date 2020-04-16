@@ -26,6 +26,7 @@ public class GameState : MonoBehaviour
 
     public static Dictionary<int, Seat> seats = new Dictionary<int, Seat>();
 
+    public int highestPlayerAmountInPot { get; internal set; }
 
     public static void Initialize()
     {
@@ -37,7 +38,7 @@ public class GameState : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            Initialize();
+            //Initialize();
         }
         else if (instance != this)
         {

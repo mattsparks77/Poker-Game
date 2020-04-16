@@ -45,9 +45,14 @@ public class UIManager : MonoBehaviour
 
     public void UpdateGameStateUI()
     {
-        amountInPot.text = "Amount in Pot: " + GameState.instance.amountInPot;
-        currentBet.text = "Current Bet: " + GameState.instance.currentBet;
-        currentTurnIndex.text = "Current Turn Index: " + GameState.instance.currentTurnIndex;
+
+        int amountToCall = GetAmountNeededToCall();
+
+        amountInPot.text = $"Total Pot Size: ${GameState.instance.amountInPot} \n Your amount in pot: ${GameManager.players[Client.instance.myId].amountInPot}";
+
+        currentBet.text = $"Current Table Bet: ${GameState.instance.currentBet} \nAmount needed to call: ${amountToCall}" ;
+
+        currentTurnIndex.text = "Current Turn Index: " + GameState.instance.currentTurnIndex + "\nYour bet: " + GameManager.players[Client.instance.myId].raiseAmount;
     }
 
     public void FixedUpdate()
@@ -110,22 +115,44 @@ public class UIManager : MonoBehaviour
     public void SendCheckCallToServer()
     {
         //GameManager.players[Client.instance.myId].chipTotal -= GameState.instance.currentBet;
+        if (GameManager.players[Client.instance.myId].chipTotal < GameState.instance.currentBet - GameManager.players[Client.instance.myId].amountInPot)
+        {
+            Debug.Log($"Error placing bet of not enough funds or too low of bet.");
+            return;
+        }
         ClientSend.PlayerAction(Client.instance.myId, isCheckCalling: true);
         SetChipTotalText();
     }
 
+
+    public int GetAmountNeededToCall()
+    {
+        if (GameState.instance.currentBet == 0)
+        {
+            return 0;
+        }
+        return GameState.instance.highestPlayerAmountInPot - GameManager.players[Client.instance.myId].amountInPot;
+    }
     // useful for accessing current players data ... GameManager.players[Client.instance.myId]
     public void SendRaiseAmountToServer()
     {
         int toRaise = int.Parse(_raiseAmount.text);
-
-        if (toRaise > GameManager.players[Client.instance.myId].chipTotal || toRaise < GameState.instance.currentBet)
+        int amountToNeededToCall = GetAmountNeededToCall();
+        if (toRaise > GameManager.players[Client.instance.myId].chipTotal || toRaise < amountToNeededToCall)
         {
             Debug.Log($"Error placing bet of ${toRaise} not enough funds or too low of bet.");
             return;
         }
- 
-        ClientSend.PlayerAction(Client.instance.myId, isRaising: true, raiseAmount: toRaise);
+        if (toRaise == amountToNeededToCall)
+        {
+            ClientSend.PlayerAction(Client.instance.myId, isCheckCalling: true);
+
+        }
+        else
+        {
+            ClientSend.PlayerAction(Client.instance.myId, isRaising: true, raiseAmount: toRaise);
+        }
+       
     }
 
     public void CheckIsTurn()
@@ -160,16 +187,31 @@ public class UIManager : MonoBehaviour
     }
 
 
-    public void SetPlayerTurnText()
+    public void SetActionText(string _action, int _id)
     {
-        string name;
+        string action = GameManager.players[_id].username + " has " + _action;
+        instance.playerTurnText.text = action;
+        StartCoroutine(ResetTextToTurnWithDelay(3.5f, _id));
+    }
+
+
+    public IEnumerator ResetTextToTurnWithDelay(float delay, int _id)
+    {
+        yield return new WaitForSeconds(delay);
+        SetPlayerTurnText(_id);
+    }
+
+
+    public void SetPlayerTurnText(int _id)
+    {
+        string name = "";
         if (IsTurn())
         {
             name = "Your turn!!";
         }
         else
         {
-            name = GameState.playersAtTable[GameState.instance.currentTurnIndex].username + "'s turn!";
+            name = GameManager.players[_id]?.username + "'s turn!";
         }
 
 

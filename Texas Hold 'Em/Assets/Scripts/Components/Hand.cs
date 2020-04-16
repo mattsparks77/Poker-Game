@@ -9,9 +9,9 @@ public class Hand : MonoBehaviour
     public List<CardScriptableObject> cards; // includes the cards out on the table
     public PokerHandInfo handInfo;
     public int PlayerID;
-    public Player player;
+    public PlayerManager player;
 
-    public void InitStart(Player p)
+    public void InitStart(PlayerManager p)
     {
         player = p;
         cards = new List<CardScriptableObject>();

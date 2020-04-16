@@ -292,7 +292,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -7.399994, y: 271.19}
+  m_AnchoredPosition: {x: -7.4000244, y: 271.19}
   m_SizeDelta: {x: -399.59, y: -542.38}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &112856139
@@ -1904,7 +1904,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -303.3, y: 98.9}
+  m_AnchoredPosition: {x: -303.3, y: 70.8}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1136566029
@@ -1961,8 +1961,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 28
+  m_fontSizeBase: 28
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1999,7 +1999,7 @@ MonoBehaviour:
   m_firstVisibleCharacter: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -264.42377, w: 0}
+  m_margin: {x: 0, y: 0, z: -264.42377, w: -15.653473}
   m_textInfo:
     textComponent: {fileID: 1136566030}
     characterCount: 19
@@ -3553,7 +3553,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Amount in Pot:'
+  m_text: 'Total Pot Size:
+
+    Your amount in Pot:'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3581,8 +3583,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 28
+  m_fontSizeBase: 28
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -3598,7 +3600,7 @@ MonoBehaviour:
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
-  m_firstOverflowCharacterIndex: -1
+  m_firstOverflowCharacterIndex: 16
   m_linkedTextComponent: {fileID: 0}
   m_isLinkedTextComponent: 0
   m_isTextTruncated: 0
@@ -3619,15 +3621,15 @@ MonoBehaviour:
   m_firstVisibleCharacter: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -176.18579, w: 0}
+  m_margin: {x: 0, y: 0, z: -176.18579, w: -8.540161}
   m_textInfo:
     textComponent: {fileID: 1757679136}
-    characterCount: 14
+    characterCount: 35
     spriteCount: 0
-    spaceCount: 2
-    wordCount: 3
+    spaceCount: 6
+    wordCount: 7
     linkCount: 0
-    lineCount: 1
+    lineCount: 2
     pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
@@ -5188,7 +5190,7 @@ PrefabInstance:
     - target: {fileID: 7779031305911268269, guid: 3ce267473e725694baee322a6c4c414f,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 154.88
+      value: 142.3
       objectReference: {fileID: 0}
     - target: {fileID: 7779031305911268269, guid: 3ce267473e725694baee322a6c4c414f,
         type: 3}
@@ -5229,6 +5231,53 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7779031305911268271, guid: 3ce267473e725694baee322a6c4c414f,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 28
+      objectReference: {fileID: 0}
+    - target: {fileID: 7779031305911268271, guid: 3ce267473e725694baee322a6c4c414f,
+        type: 3}
+      propertyPath: m_fontSizeBase
+      value: 28
+      objectReference: {fileID: 0}
+    - target: {fileID: 7779031305911268271, guid: 3ce267473e725694baee322a6c4c414f,
+        type: 3}
+      propertyPath: m_margin.w
+      value: -14.199585
+      objectReference: {fileID: 0}
+    - target: {fileID: 7779031305911268271, guid: 3ce267473e725694baee322a6c4c414f,
+        type: 3}
+      propertyPath: m_text
+      value: 'Current Table Bet:
+
+        Amount needed to call:'
+      objectReference: {fileID: 0}
+    - target: {fileID: 7779031305911268271, guid: 3ce267473e725694baee322a6c4c414f,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 41
+      objectReference: {fileID: 0}
+    - target: {fileID: 7779031305911268271, guid: 3ce267473e725694baee322a6c4c414f,
+        type: 3}
+      propertyPath: m_textInfo.spaceCount
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7779031305911268271, guid: 3ce267473e725694baee322a6c4c414f,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7779031305911268271, guid: 3ce267473e725694baee322a6c4c414f,
+        type: 3}
+      propertyPath: m_textInfo.lineCount
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7779031305911268271, guid: 3ce267473e725694baee322a6c4c414f,
+        type: 3}
+      propertyPath: m_margin.z
+      value: -209.45819
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3ce267473e725694baee322a6c4c414f, type: 3}

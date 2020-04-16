@@ -45,6 +45,7 @@ public class ClientHandle : MonoBehaviour
         CardDealer.instance.DeleteCardsInPlay();
         CommunityCards.nextEmptySpot = 0;
         CardManager.instance.communityCards.Clear();
+        GameState.playersAtTable.Clear();
 
         foreach (PlayerManager p in GameManager.players.Values)
         {
@@ -67,15 +68,31 @@ public class ClientHandle : MonoBehaviour
         
     }
 
+    /// <summary>
+    /// Sets chips for players Add, Subtract, Set
+    /// </summary>
+    /// <param name="_packet"></param>
     public static void SetChips(Packet _packet)
     {
         int _id = _packet.ReadInt();
         int _setAmount = _packet.ReadInt();
         int _subtractAmount = _packet.ReadInt();
         int _addAmount = _packet.ReadInt();
+        bool _isBlinds = _packet.ReadBool();
+
         GameManager.players[_id].AddChips(_addAmount);
-        GameManager.players[_id].SubtractChips(_addAmount);
-        GameManager.players[_id].SetChips(_addAmount);
+        GameManager.players[_id].SubtractChips(_subtractAmount);
+        if (_setAmount != 0)
+        {
+            GameManager.players[_id].SetChips(_setAmount);
+        }
+    
+        if (_isBlinds)
+        {
+            GameManager.players[_id].amountInPot = _subtractAmount;
+        }
+        UIManager.instance.SetChipTotalText();
+
     }
 
 
@@ -94,27 +111,45 @@ public class ClientHandle : MonoBehaviour
         GameManager.players[_id].raiseAmount = raiseAmount;
         if (isFold)
         {
-            UIManager.instance.playerTurnText.text = GameManager.players[_id].username + " folded.";
+            UIManager.instance.SetActionText("folded.", _id);
+            //UIManager.instance.playerTurnText.text = GameManager.players[_id].username + " folded.";
             Debug.Log($"[FOLDED] Received player action: Username: { GameManager.players[_id].username}, ID: {_id} , Action: Folded");
 
 
         }
         else if (isRaise)
         {
-            UIManager.instance.playerTurnText.text = GameManager.players[_id].username + " raised $" + raiseAmount;
+            UIManager.instance.SetActionText("raised $" + raiseAmount, _id);
+            //UIManager.instance.playerTurnText.text = GameManager.players[_id].username + " raised $" + raiseAmount;
 
             GameManager.players[_id].SubtractChips(raiseAmount);
             GameManager.players[_id].amountInPot += raiseAmount;
-            Debug.Log($"[RAISED] Received player action: Username: { GameManager.players[_id].username}, ID: {_id} , Action: Raise");
+            GameManager.players[_id].lastBet = raiseAmount;
+            GameState.instance.currentBet = GameManager.players[_id].amountInPot;
+            GameState.instance.highestPlayerAmountInPot = GameManager.players[_id].amountInPot;
 
-            Debug.Log($"Player now has: { GameManager.players[_id].chipTotal}");
+            Debug.Log($"Player {GameManager.players[_id].username} has: {GameManager.players[_id].chipTotal}");
+
 
         }
         else if (isCheckCall)
         {
-            UIManager.instance.playerTurnText.text = GameManager.players[_id].username + " checked.";
-            GameManager.players[_id].SubtractChips(GameState.instance.currentBet);
-            GameManager.players[_id].amountInPot += GameState.instance.currentBet;
+            UIManager.instance.SetActionText("checked.", _id);
+            //UIManager.instance.playerTurnText.text = GameManager.players[_id].username + " checked.";
+            int amountToCall = 0;
+            amountToCall = GameState.instance.highestPlayerAmountInPot - GameManager.players[_id].amountInPot;
+            Debug.Log($"[CHECK] Amount to call: {amountToCall}");
+            //if (GameState.instance.currentBet == 0)
+            //{
+            //    amountToCall = 0;
+            //}
+            //if (GameState.instance.currentBet != 0)
+            //{
+            //    amountToCall = GameState.instance.highestPlayerAmountInPot - GameManager.players[_id].amountInPot;
+            //}
+            GameManager.players[_id].SubtractChips(amountToCall);
+            GameManager.players[_id].amountInPot += amountToCall;
+            GameState.instance.amountInPot += amountToCall;
             Debug.Log($"[CHECK] Received player action: Username: { GameManager.players[_id].username}, ID: {_id} , Action: Check");
 
             // GameManager.players[_id].
@@ -134,14 +169,18 @@ public class ClientHandle : MonoBehaviour
         GameState.instance.currentBet = _packet.ReadInt();
         GameState.instance.amountInPot = _packet.ReadInt();
         GameState.instance.currentTurnIndex = _packet.ReadInt();
+        int currentTurnId = _packet.ReadInt();
+        GameState.instance.highestPlayerAmountInPot = _packet.ReadInt();
 
-        Debug.Log($"Current Bet: {GameState.instance.currentBet}");
-        Debug.Log($"Amount in Pot: {GameState.instance.amountInPot}");
-        Debug.Log($"Current Index: {GameState.instance.currentTurnIndex}");
+
+
+        //Debug.Log($"Current Bet: {GameState.instance.currentBet}");
+        //Debug.Log($"Amount in Pot: {GameState.instance.amountInPot}");
+        //Debug.Log($"Current Index: {GameState.instance.currentTurnIndex}");
 
         UIManager.instance.UpdateGameStateUI();
         UIManager.instance.CheckIsTurn();
-        UIManager.instance.SetPlayerTurnText();
+        UIManager.instance.SetPlayerTurnText(currentTurnId);
         //GameManager.instance.SpawnPlayer(_id, _username);
     }
 
@@ -149,28 +188,58 @@ public class ClientHandle : MonoBehaviour
     {
         int _id = _packet.ReadInt();
         int _tableIndex = _packet.ReadInt();
-        GameState.Initialize();
-        if (true)//GameState.playersAtTable[_tableIndex] != null)
+        // GameState.Initialize();
+        GameManager.players[_id].tableIndex = _tableIndex;
+        GameState.playersAtTable.Add(GameManager.players[_id]);
+        //GameManager.players[_id].tableIndex = GameState.playersAtTable.IndexOf(GameManager.players[_id]);
+
+        if (GameState.playersAtTable.IndexOf(GameManager.players[_id]) != _tableIndex)
         {
-            //If clients removes himself from the table then -1 is sent and client is removed from playersInGameList.
-            if (_tableIndex == -1)
-            {
-                GameState.seats[GameManager.players[_id].tableIndex].isOccupied = false;
-                GameState.seats[GameManager.players[_id].tableIndex].DisplayJoinButton(true);
-                GameManager.players[_id].tableIndex = -1;
-                GameState.playersAtTable.Remove(GameManager.players[_id]);
-
-            }
-            else
-            {
-                //GameState.seats[GameManager.players[_id].tableIndex].isOccupied = true;
-                //GameState.seats[GameManager.players[_id].tableIndex].DisplayJoinButton(false);
-
-                GameManager.players[_id].tableIndex = _tableIndex;
-                GameState.playersAtTable[_tableIndex] = GameManager.players[_id];
-            }
+            Debug.Log($"{GameManager.players[_id].username} has an incorrect table index of {GameState.playersAtTable.IndexOf(GameManager.players[_id])} but should be {_tableIndex}!!");
            
         }
+        //if (_tableIndex == -1)
+        //{
+        //    GameState.seats[GameManager.players[_id].tableIndex].isOccupied = false;
+        //    GameState.seats[GameManager.players[_id].tableIndex].DisplayJoinButton(true);
+        //    GameManager.players[_id].tableIndex = -1;
+        //    GameState.playersAtTable.Remove(GameManager.players[_id]);
+
+        //}
+        //else
+        //{
+        //    //GameState.seats[GameManager.players[_id].tableIndex].isOccupied = true;
+        //    //GameState.seats[GameManager.players[_id].tableIndex].DisplayJoinButton(false);
+            
+        //    GameManager.players[_id].tableIndex = _tableIndex;
+        //    GameState.playersAtTable.Add(GameManager.players[_id]);
+        //    if (GameState.playersAtTable.IndexOf(GameManager.players[_id]) != _tableIndex)
+        //    {
+        //        Debug.Log($"{GameManager.players[_id].username} has an incorrect table index of {GameState.playersAtTable.IndexOf(GameManager.players[_id])} but should be {_tableIndex}!!");
+        //    }
+        //}
+        //}
+        //if (GameState.playersAtTable[_tableIndex] != null)
+        //{
+        //    //If clients removes himself from the table then -1 is sent and client is removed from playersInGameList.
+        //    if (_tableIndex == -1)
+        //    {
+        //        GameState.seats[GameManager.players[_id].tableIndex].isOccupied = false;
+        //        GameState.seats[GameManager.players[_id].tableIndex].DisplayJoinButton(true);
+        //        GameManager.players[_id].tableIndex = -1;
+        //        GameState.playersAtTable.Remove(GameManager.players[_id]);
+
+        //    }
+        //    else
+        //    {
+        //        //GameState.seats[GameManager.players[_id].tableIndex].isOccupied = true;
+        //        //GameState.seats[GameManager.players[_id].tableIndex].DisplayJoinButton(false);
+
+        //        GameManager.players[_id].tableIndex = _tableIndex;
+        //        GameState.playersAtTable[_tableIndex] = GameManager.players[_id];
+        //    }
+           
+        
     }
 
 

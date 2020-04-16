@@ -4,32 +4,32 @@ using UnityEngine;
 
 public class OldGameManager : MonoBehaviour
 {
-    public GameObject playerPrefab;
-    public List<Player> players;
-    public Seat[] seats;
-    public int availableID;
-    public int availableSeat;
-    public Dictionary<Player, int> SeatDict;
-    public Hashtable playerSeatLookup;
-    public int maxNumSeats;
-    // Start is called before the first frame update
-    void Start()
-    {
-        availableID = 0;
-        availableSeat = 0;
-        maxNumSeats = 8;
-        seats = new Seat[maxNumSeats];
-        players = new List<Player>();
-        playerSeatLookup = new Hashtable();
-        SeatDict = new Dictionary<Player, int>();
+    //public GameObject playerPrefab;
+    //public List<Player> players;
+    //public Seat[] seats;
+    //public int availableID;
+    //public int availableSeat;
+    //public Dictionary<Player, int> SeatDict;
+    //public Hashtable playerSeatLookup;
+    //public int maxNumSeats;
+    //// Start is called before the first frame update
+    //void Start()
+    //{
+    //    availableID = 0;
+    //    availableSeat = 0;
+    //    maxNumSeats = 8;
+    //    seats = new Seat[maxNumSeats];
+    //    players = new List<Player>();
+    //    playerSeatLookup = new Hashtable();
+    //    SeatDict = new Dictionary<Player, int>();
 
-    }
+    //}
 
-    // Update is called once per frame
-    void Update()
-    {
+    //// Update is called once per frame
+    //void Update()
+    //{
         
-    }
+    //}
 
 
     //public Player CreatePlayer() // probably move to game manager

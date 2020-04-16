@@ -401,8 +401,5 @@ public class LogicSystem // best 5 card
     {
         public int highCard;
 
-
-
-
     }
 }

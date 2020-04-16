@@ -13,8 +13,9 @@ public class PlayerManager : MonoBehaviour
     public bool isFolding;
     public bool isCheckCalling;
     public bool isRaising;
-    public int raiseAmount =0 ;
+    public int raiseAmount = 0;
     public int amountInPot = 0;
+    public int lastBet = 0;
 
     public int chipTotal = 1000;
     public List<CardScriptableObject> cards;
@@ -74,6 +75,8 @@ public class PlayerManager : MonoBehaviour
         cards.Clear();
         handPlaceHolder.nextEmptySpot = 0;
         amountInPot = 0;
+        raiseAmount = 0;
+        lastBet = 0;
     }
 
 

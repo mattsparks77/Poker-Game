@@ -24,51 +24,51 @@ public class PokerTest : MonoBehaviour
    
     }
 
-    public Player CreatePlayer()
-    {
-        Player p = new Player();
-        GameObject o = new GameObject();
-       // p = Instantiate(o).AddComponent<Player>();
-        //p.gameObject.AddComponent<Hand>();
-       // p.hand = new Hand();
-       // p.hand.InitStart(p);
-        int id = GeneratePlayerID();
-        //p.gameObject.name = "Player " + id;
-       // p.ID = id;
+    //public Player CreatePlayer()
+    //{
+    //    Player p = new Player();
+    //    GameObject o = new GameObject();
+    //   // p = Instantiate(o).AddComponent<Player>();
+    //    //p.gameObject.AddComponent<Hand>();
+    //   // p.hand = new Hand();
+    //   // p.hand.InitStart(p);
+    //    int id = GeneratePlayerID();
+    //    //p.gameObject.name = "Player " + id;
+    //   // p.ID = id;
 
-        return p;
-    }
-    //creates a new hand for the player
-    public void CreateHandForPlayer(int pID)
-    {
-        GameObject o = new GameObject();
-        Hand h = Instantiate(o).AddComponent<Hand>();
-        h.PlayerID = GeneratePlayerID();
-        Debug.Log(h.PlayerID);
-    }
+    //    return p;
+    //}
+    ////creates a new hand for the player
+    //public void CreateHandForPlayer(int pID)
+    //{
+    //    GameObject o = new GameObject();
+    //    Hand h = Instantiate(o).AddComponent<Hand>();
+    //    h.PlayerID = GeneratePlayerID();
+    //    Debug.Log(h.PlayerID);
+    //}
 
-    public void CreateHandObjects(int n, int numCards)
-    {
-        for (int i = 0; i < n; i++)
-        {
-            testHands.Add(cm.TestDealHand(numCards));
-        }
-    }
+    //public void CreateHandObjects(int n, int numCards)
+    //{
+    //    for (int i = 0; i < n; i++)
+    //    {
+    //        testHands.Add(cm.TestDealHand(numCards));
+    //    }
+    //}
 
-    public int GeneratePlayerID()
-    {
-        return playerIDs++;
-    }
+    //public int GeneratePlayerID()
+    //{
+    //    return playerIDs++;
+    //}
 
-    public void CreateTestHand(Hand h)
-    {
-        //for (int i =0; i <7; i++)
-        //{
-        //    Card c = cm.TestDeal();
-        //    h.cards.Add(c); // adds in 7 cards to hand
-        //}
-        //handCards = h.cards;
-        //h.AddHandtoPokerHandInfo();
-        //NumHands++;
-    }
+    //public void CreateTestHand(Hand h)
+    //{
+    //    //for (int i =0; i <7; i++)
+    //    //{
+    //    //    Card c = cm.TestDeal();
+    //    //    h.cards.Add(c); // adds in 7 cards to hand
+    //    //}
+    //    //handCards = h.cards;
+    //    //h.AddHandtoPokerHandInfo();
+    //    //NumHands++;
+    //}
 }

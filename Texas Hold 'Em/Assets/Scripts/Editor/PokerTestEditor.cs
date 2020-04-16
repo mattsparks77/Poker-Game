@@ -49,7 +49,7 @@ public class PokerTestEditor : Editor
 
         if (GUILayout.Button("Create x Number of Hands"))
         {
-            pt.CreateHandObjects(pt.HandsToCreate,pt.CardsInHand);
+            //pt.CreateHandObjects(pt.HandsToCreate,pt.CardsInHand);
         }
         if (GUILayout.Button("Reset Deck()"))
         {

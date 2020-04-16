@@ -629,7 +629,7 @@ ScriptsOnlyBuild:
     className: TMP_TextSelector_A
   - hash:
       serializedVersion: 2
-      Hash: 14f683e3d40d8d7b0b05fbba4e01a624
+      Hash: 6b477212b6d61df622ebda45c59d7358
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PlayerManager
@@ -839,7 +839,7 @@ ScriptsOnlyBuild:
     className: VertexShakeA
   - hash:
       serializedVersion: 2
-      Hash: ad19786c52b4c49584c4a63c554b6b51
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: OldGameManager
@@ -875,7 +875,7 @@ ScriptsOnlyBuild:
     className: Outline
   - hash:
       serializedVersion: 2
-      Hash: 22c12a9df1d326171af16e43cbdef926
+      Hash: 9c2262fb332468f83f72635bc8ae2126
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Hand
@@ -960,5 +960,5 @@ ScriptsOnlyBuild:
   platform: 19
   scenePathNames:
   - Assets/Scenes/NetworkGame.unity
-  playerPath: C:/Users/Matt/Documents/Unity Projects/Texas Holdem/Texas Hold 'Em/Builds/Texas
-    Hold 'Em.exe
+  playerPath: C:/Users/Matt/Documents/Unity Projects/Texas Holdem/Poker-Game/Texas
+    Hold 'Em/Builds/Texas Hold 'Em.exe

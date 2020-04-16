@@ -11,7 +11,7 @@ public class CardDealer: MonoBehaviour
     public List<Transform> CardLocations; 
     public List<GameObject> CardsInPlay;
 
-    public Dictionary<Player, int> SeatDict;
+    public Dictionary<PlayerManager, int> SeatDict;
     public int pid;
     GameObject temp;
 
@@ -37,7 +37,7 @@ public class CardDealer: MonoBehaviour
 
     public void InitCardDealer()
     {
-        SeatDict = new Dictionary<Player, int>();
+        SeatDict = new Dictionary<PlayerManager, int>();
         pid = 0;
         temp = new GameObject();
         DeckLocation = GameObject.FindGameObjectWithTag("Deck");
@@ -121,37 +121,37 @@ public class CardDealer: MonoBehaviour
     }
 
 
-    public Transform FindCardTransformAtSeat(Player p, int seat)
-    {
+    //public Transform FindCardTransformAtSeat(Player p, int seat)
+    //{
     
-        CardPairTransform cpt = DeckLocation.transform.GetChild(seat).GetComponent<CardPairTransform>();
-        if (cpt.seatOccupied == true && cpt.playerID != p.id)
-        {
-            return null;
-        }
-        return cpt.ReturnOpenCardTransform();
+    //    CardPairTransform cpt = DeckLocation.transform.GetChild(seat).GetComponent<CardPairTransform>();
+    //    if (cpt.seatOccupied == true && cpt.playerID != p.id)
+    //    {
+    //        return null;
+    //    }
+    //    return cpt.ReturnOpenCardTransform();
 
     
-    }
+    //}
 
-    public void SpawnCardAtTable(Player p, CardScriptableObject c, int spot)
-    {
-        Transform t = FindCardTransformAtSeat(p, spot);
-        GameObject inPlayCard = Instantiate(c.prefab, t);
-        CardsInPlay.Add(inPlayCard);
+    //public void SpawnCardAtTable(Player p, CardScriptableObject c, int spot)
+    //{
+    //    Transform t = FindCardTransformAtSeat(p, spot);
+    //    GameObject inPlayCard = Instantiate(c.prefab, t);
+    //    CardsInPlay.Add(inPlayCard);
 
-    }
+    //}
 
-    public void DealSpecificCard(Player p, CardScriptableObject card)
-    {
-        //Find open spot at table and return another seat if it's occupied
-        //SpawnCardAtTable(p, c, )
-        //GameObject cardPrefab = Instantiate(card.prefab, p.hand.transform);
-        //CardsInPlay.Add(cardPrefab);
-        //p.hand.AddCard(card);
+    //public void DealSpecificCard(Player p, CardScriptableObject card)
+    //{
+    //    //Find open spot at table and return another seat if it's occupied
+    //    //SpawnCardAtTable(p, c, )
+    //    //GameObject cardPrefab = Instantiate(card.prefab, p.hand.transform);
+    //    //CardsInPlay.Add(cardPrefab);
+    //    //p.hand.AddCard(card);
    
         
-    }
+    //}
 
     public void DealSpecificCard(Hand p, CardScriptableObject card)
     {
