@@ -17,7 +17,7 @@ public class PlayerManager : MonoBehaviour
     public int amountInPot = 0;
     public int lastBet = 0;
 
-    public int chipTotal = 1000;
+    public int chipTotal;
     public List<CardScriptableObject> cards;
     public MeshRenderer model;
     public PlayerUI playerUI;

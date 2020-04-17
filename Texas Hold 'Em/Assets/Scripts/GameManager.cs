@@ -22,9 +22,7 @@ public class GameManager : MonoBehaviour
     {
         if (instance == null)
         {
-            instance = this;
-            Initialize();
-            
+            instance = this;            
         }
         else if (instance != this)
         {
@@ -33,9 +31,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void Initialize()
-    {
-    }
 
     /// <summary>Spawns a player.</summary>
     /// <param name="_id">The player's ID.</param>

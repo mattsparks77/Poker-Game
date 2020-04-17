@@ -21,6 +21,9 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI chipTotal;
     public TextMeshProUGUI playerTurnText;
 
+    public int _raiseAmnt { get { return int.Parse(raiseAmountTextInput.GetComponentInChildren<TextMeshProUGUI>().text); } set { _raiseAmnt = int.Parse(raiseAmountTextInput.GetComponentInChildren<TextMeshProUGUI>().text); } }
+
+
     public TextMeshProUGUI amountInPot;
     public TextMeshProUGUI currentBet;
     public TextMeshProUGUI currentTurnIndex;
@@ -137,6 +140,7 @@ public class UIManager : MonoBehaviour
     public void SendRaiseAmountToServer()
     {
         int toRaise = int.Parse(_raiseAmount.text);
+       
         int amountToNeededToCall = GetAmountNeededToCall();
         if (toRaise > GameManager.players[Client.instance.myId].chipTotal || toRaise < amountToNeededToCall)
         {
@@ -183,6 +187,7 @@ public class UIManager : MonoBehaviour
     public void SetChipTotalText()
     {
         if (!chipTotal) { return; }
+        Debug.Log($"[SETCHIPTOTALTEXT] ${GameManager.players[Client.instance.myId].chipTotal.ToString()}");
         instance.chipTotal.text = "$" + GameManager.players[Client.instance.myId].chipTotal.ToString();
     }
 

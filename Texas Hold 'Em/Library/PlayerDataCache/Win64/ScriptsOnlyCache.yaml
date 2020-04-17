@@ -755,7 +755,7 @@ ScriptsOnlyBuild:
     className: VertexShakeB
   - hash:
       serializedVersion: 2
-      Hash: a393e1d85ad3d56e5c48c9a58cc2d806
+      Hash: 32ec12e370ce12c4f07360897af3266a
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Client

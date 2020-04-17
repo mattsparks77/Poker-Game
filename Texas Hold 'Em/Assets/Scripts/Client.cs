@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Net;
 using System.Net.Sockets;
 using System;
+using UnityEngine.UI;
 
 public class Client : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class Client : MonoBehaviour
     public static int dataBufferSize = 4096;
 
     public string ip = "127.0.0.1";
+    public Text ipText;
     public int port = 26950;
     public int myId = 0;
     public TCP tcp;
@@ -19,6 +21,8 @@ public class Client : MonoBehaviour
     private bool isConnected = false;
     private delegate void PacketHandler(Packet _packet);
     private static Dictionary<int, PacketHandler> packetHandlers;
+
+
 
     private void Awake()
     {
@@ -44,6 +48,11 @@ public class Client : MonoBehaviour
         Disconnect(); // Disconnect when the game is closed
     }
 
+
+    public void ChangeIP()
+    {
+        ip = ipText.text;
+    }
     /// <summary>Attempts to connect to the server.</summary>
     public void ConnectToServer()
     {
