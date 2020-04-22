@@ -10,7 +10,7 @@ public class GameState : MonoBehaviour
     public int currentBet;
     public int amountInPot;
 
-    public int currentTurnIndex;
+    public int currentTurnIndex = 0;
 
     public int smallBlindIndex;
     public int bigBlindIndex;
@@ -50,6 +50,7 @@ public class GameState : MonoBehaviour
 
     public static void UpdateGameState()
     {
+        //foreach (player)
         //to do set values in variables above to values received from the server. May also need to add a game state class to the server.. 
     }
 }

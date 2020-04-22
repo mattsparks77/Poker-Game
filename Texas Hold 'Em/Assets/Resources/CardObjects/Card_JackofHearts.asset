@@ -16,5 +16,6 @@ MonoBehaviour:
   suitValue: 2
   suit: H
   prefab: {fileID: 1023821072502864, guid: 2d1aca73401654a8f9e98cdc5e395352, type: 3}
+  sprite: {fileID: -1322402607725739659, guid: dad81ad04b4036243b50427213110f50, type: 3}
   path: Assets/CardObjects/Card_ JackofHearts.asset
   name: JackofHearts

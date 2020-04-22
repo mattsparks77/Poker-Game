@@ -9,7 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6237766969294460878}
-  - component: {fileID: 6237766969294460849}
+  - component: {fileID: 1388100042}
+  - component: {fileID: 1388100043}
+  - component: {fileID: 1388100045}
+  - component: {fileID: 1388100046}
+  - component: {fileID: 1388100047}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: GameManager
@@ -31,7 +35,74 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6237766969294460849
+--- !u!114 &1388100042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6237766969294460851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3724edd9b4c1f242980cbd37e5b9427, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startMenu: {fileID: 0}
+  usernameField: {fileID: 0}
+  _raiseAmount: {fileID: 0}
+  foldButton: {fileID: 0}
+  raiseButton: {fileID: 0}
+  checkCallButton: {fileID: 0}
+  raiseAmountTextInput: {fileID: 0}
+  allInButton: {fileID: 0}
+  chipTotal: {fileID: 0}
+  playerTurnText: {fileID: 0}
+  amountInPot: {fileID: 0}
+  currentBet: {fileID: 0}
+  currentTurnIndex: {fileID: 0}
+  playerUI: {fileID: 0}
+  prefabId: 0
+  playerManager: {fileID: 0}
+--- !u!114 &1388100043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6237766969294460851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bead55f251f817c4e8ffb93f19531632, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingChips: 2000
+  WorldSpaceCanvas: {fileID: 0}
+  playerPrefabs:
+  - {fileID: 1176344034812902754, guid: e84ada1b5d296f944a417e3125d875f6, type: 3}
+  - {fileID: 4938552056850513038, guid: 940098ee9bb8bab4398ac7f56724f690, type: 3}
+  - {fileID: 1408947241013155567, guid: 752d3d7fb87537e4dadf408378fe445c, type: 3}
+  - {fileID: 4767977844031297096, guid: cfb4ce9b7993cdb46854e85d64d657e0, type: 3}
+  localPlayerPrefab: {fileID: 4052908526979608746, guid: 79a35255cf0433d4288a76d983cb8b6b,
+    type: 3}
+  playerPrefab: {fileID: 1176344034812902754, guid: e84ada1b5d296f944a417e3125d875f6,
+    type: 3}
+--- !u!114 &1388100045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6237766969294460851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a07d3db1003c44baa8cab46bfcae1d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DeckLocation: {fileID: 0}
+  CardLocations: []
+  CardsInPlay: []
+  pid: 0
+--- !u!114 &1388100046
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -44,4 +115,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardList: []
-  cd: {fileID: 0}
+  txt: {fileID: 0}
+  lines: []
+--- !u!114 &1388100047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6237766969294460851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1d04a5c2c012b94e992ba47f6bcb3a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentBet: 0
+  amountInPot: 0
+  currentTurnIndex: 0
+  smallBlindIndex: 0
+  bigBlindIndex: 0
+  dealerIndex: 0
+  playersLeft: 0
+  gameStarted: 0

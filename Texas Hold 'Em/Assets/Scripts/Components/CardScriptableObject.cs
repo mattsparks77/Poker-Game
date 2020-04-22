@@ -15,6 +15,7 @@ public class CardScriptableObject : ScriptableObject
     public string suit;
     public Card cardInstance;
     public GameObject prefab;
+    public Sprite sprite;
 
     public string path;
 	public new string name;

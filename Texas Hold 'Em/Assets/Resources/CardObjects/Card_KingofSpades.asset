@@ -16,5 +16,6 @@ MonoBehaviour:
   suitValue: 3
   suit: S
   prefab: {fileID: 1376226850708984, guid: c1f81102df1d64a31bde3cc9122a19eb, type: 3}
+  sprite: {fileID: 7661349229570193438, guid: dad81ad04b4036243b50427213110f50, type: 3}
   path: Assets/CardObjects/Card_ KingofSpades.asset
   name: KingofSpades

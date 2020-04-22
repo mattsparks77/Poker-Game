@@ -104,6 +104,9 @@ public class CardDealer: MonoBehaviour
         //Adds card into the community cards list
         CardManager.instance.communityCards.Add(toDeal.cardInstance);
 
+        // Updates community card ui with corresponding card sprite
+        CommunityCards.instance.communityImagesUI[CommunityCards.nextEmptySpot].sprite = toDeal.sprite;
+        // Updates gameworld physical cards to the correct card.
         Transform spot = CommunityCards.placeholders[CommunityCards.nextEmptySpot];
         GameObject cardPrefab = Instantiate(toDeal.prefab, spot);
         CardsInPlay.Add(cardPrefab);

@@ -1,12 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CommunityCards : MonoBehaviour
 {
     public static CommunityCards instance;
     public static Transform[] placeholders = new Transform[5];
+    public Image[] communityImagesUI = new Image[5];
     public static int nextEmptySpot = 0;
+
+    public GameObject communityCardsUIObject;
+    public Sprite cardBack;
 
     private void Awake()
     {
@@ -21,8 +26,16 @@ public class CommunityCards : MonoBehaviour
             Destroy(this);
         }
     }
-
-
+    /// <summary>
+    /// Sets card ui to the card back.
+    /// </summary>
+    public void ResetCardUI()
+    {
+        foreach (Image i in communityImagesUI)
+        {
+            i.sprite = cardBack;
+        }
+    }
 
     public void Initialize()
     {
@@ -31,6 +44,7 @@ public class CommunityCards : MonoBehaviour
         placeholders[2] = this.transform.GetChild(2);
         placeholders[3] = this.transform.GetChild(3);
         placeholders[4] = this.transform.GetChild(4);
+        communityCardsUIObject.SetActive(true);
 
     }
 }

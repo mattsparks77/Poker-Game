@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Card_JackofClubs
   m_EditorClassIdentifier: 
   value: 11
-  count: 4
+  suitValue: 0
   suit: C
   prefab: {fileID: 1385573723570528, guid: f6457ae5150c64cdda328df29bd98417, type: 3}
+  sprite: {fileID: 8307107667866971259, guid: dad81ad04b4036243b50427213110f50, type: 3}
   path: Assets/CardObjects/Card_ JackofClubs.asset
   name: JackofClubs

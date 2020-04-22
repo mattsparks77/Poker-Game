@@ -16,5 +16,6 @@ MonoBehaviour:
   suitValue: 1
   suit: D
   prefab: {fileID: 1152016911021214, guid: 8838c227f4e544544840d2d9e0fc6a62, type: 3}
+  sprite: {fileID: 1281812429872771621, guid: dad81ad04b4036243b50427213110f50, type: 3}
   path: Assets/CardObjects/Card_ QueenofDiamonds.asset
   name: QueenofDiamonds

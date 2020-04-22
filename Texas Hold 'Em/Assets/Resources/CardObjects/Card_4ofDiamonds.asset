@@ -16,5 +16,6 @@ MonoBehaviour:
   suitValue: 1
   suit: D
   prefab: {fileID: 1517830029757860, guid: 9574bac6304c343d8851d5fec668aab8, type: 3}
+  sprite: {fileID: -8689998969653393631, guid: dad81ad04b4036243b50427213110f50, type: 3}
   path: Assets/CardObjects/Card_ 4ofDiamonds.asset
   name: 4ofDiamonds

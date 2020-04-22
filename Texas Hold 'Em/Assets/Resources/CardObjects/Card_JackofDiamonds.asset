@@ -16,5 +16,6 @@ MonoBehaviour:
   suitValue: 1
   suit: D
   prefab: {fileID: 1147413753710390, guid: e5fe6318750c3483684ce5379ca38a81, type: 3}
+  sprite: {fileID: 7267740151308929446, guid: dad81ad04b4036243b50427213110f50, type: 3}
   path: Assets/CardObjects/Card_ JackofDiamonds.asset
   name: JackofDiamonds

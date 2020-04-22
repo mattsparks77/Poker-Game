@@ -16,11 +16,14 @@ public class PlayerManager : MonoBehaviour
     public int raiseAmount = 0;
     public int amountInPot = 0;
     public int lastBet = 0;
-
+    public bool receivedCards = false;
     public int chipTotal;
+
+    public GameObject UsernameUI;
     public List<CardScriptableObject> cards;
     public MeshRenderer model;
     public PlayerUI playerUI;
+    public Animator animator;
 
     public HandPlaceholder handPlaceHolder;
 
@@ -48,10 +51,18 @@ public class PlayerManager : MonoBehaviour
         CardScriptableObject c = CardDealer.instance.DealCard(_suit, _rank, handPlaceHolder.placeholders[handPlaceHolder.nextEmptySpot]);
         handPlaceHolder.nextEmptySpot += 1;
         cards.Add(c);
+        if (cards.Count >= 2)
+        {
+            receivedCards = true;
+            PlayerListManager.players[id].UpdateCardSprites();
+
+        }
         if (handPlaceHolder.nextEmptySpot > 2)
         {
+            
             handPlaceHolder.Reset();
         }
+
     }
 
     public void MakeBet(int _chips)
@@ -77,6 +88,12 @@ public class PlayerManager : MonoBehaviour
         amountInPot = 0;
         raiseAmount = 0;
         lastBet = 0;
+        receivedCards = false;
+    }
+
+    public void SetAnimator(string anim)
+    {
+        animator.Play(anim);
     }
 
 

@@ -16,5 +16,6 @@ MonoBehaviour:
   suitValue: 1
   suit: D
   prefab: {fileID: 1516073739362016, guid: 2df786d4e60384b2b8ea939329a1ee73, type: 3}
+  sprite: {fileID: -3860979781581986464, guid: dad81ad04b4036243b50427213110f50, type: 3}
   path: Assets/CardObjects/Card_ KingofDiamonds.asset
   name: KingofDiamonds

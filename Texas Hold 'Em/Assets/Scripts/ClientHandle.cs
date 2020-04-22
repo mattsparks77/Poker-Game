@@ -20,16 +20,20 @@ public class ClientHandle : MonoBehaviour
 
         // Now that we have the client's id, connect UDP
         Client.instance.udp.Connect(((IPEndPoint)Client.instance.tcp.socket.Client.LocalEndPoint).Port);
+        
+
     }
 
     public static void SpawnPlayer(Packet _packet)
     {
         int _id = _packet.ReadInt();
+        int _prefabId = _packet.ReadInt();
         string _username = _packet.ReadString();
         Vector3 _position = _packet.ReadVector3();
         Quaternion _rotation = _packet.ReadQuaternion();
 
-        GameManager.instance.SpawnPlayer(_id, _username);
+        GameManager.instance.SpawnPlayer(_id, _username, _prefabId);
+     
     }
 
     public static void ReceiveCardToCommunity(Packet _packet)
@@ -46,11 +50,13 @@ public class ClientHandle : MonoBehaviour
         CommunityCards.nextEmptySpot = 0;
         CardManager.instance.communityCards.Clear();
         GameState.playersAtTable.Clear();
+        CommunityCards.instance.ResetCardUI();
 
         foreach (PlayerManager p in GameManager.players.Values)
         {
             p.Reset();
         }
+        
     }
 
     public static void ReceiveCard(Packet _packet)
@@ -60,6 +66,11 @@ public class ClientHandle : MonoBehaviour
         int rank = _packet.ReadInt();
         //Debug.Log($"Receiving Card.. ID: {_id}, Suit: {suit}, Rank: {rank}");
         GameManager.players[_id].AddCardToHand(suit, rank);
+
+
+        
+
+        
         
         //if (_id == Client.instance.myId)
         //{
@@ -92,6 +103,7 @@ public class ClientHandle : MonoBehaviour
             GameManager.players[_id].amountInPot = _subtractAmount;
         }
         UIManager.instance.SetChipTotalText();
+        SliderObject.UpdateMinMaxValues();
 
     }
 
@@ -112,6 +124,7 @@ public class ClientHandle : MonoBehaviour
         if (isFold)
         {
             UIManager.instance.SetActionText("folded.", _id);
+            PlayerListManager.players[_id].UpdateActionText("FOLD");
             //UIManager.instance.playerTurnText.text = GameManager.players[_id].username + " folded.";
             Debug.Log($"[FOLDED] Received player action: Username: { GameManager.players[_id].username}, ID: {_id} , Action: Folded");
 
@@ -120,8 +133,16 @@ public class ClientHandle : MonoBehaviour
         else if (isRaise)
         {
             UIManager.instance.SetActionText("raised $" + raiseAmount, _id);
-            //UIManager.instance.playerTurnText.text = GameManager.players[_id].username + " raised $" + raiseAmount;
+            PlayerListManager.players[_id].UpdateActionText("RAISE $"+raiseAmount);
 
+            //UIManager.instance.playerTurnText.text = GameManager.players[_id].username + " raised $" + raiseAmount;
+            //foreach (PlayerManager p in GameManager.players)
+            //{
+            //    if (p.id != _id)
+            //    {
+            //        p.completedActionThisTurn = false;
+            //    }
+            //}
             GameManager.players[_id].SubtractChips(raiseAmount);
             GameManager.players[_id].amountInPot += raiseAmount;
             GameManager.players[_id].lastBet = raiseAmount;
@@ -135,6 +156,7 @@ public class ClientHandle : MonoBehaviour
         else if (isCheckCall)
         {
             UIManager.instance.SetActionText("checked.", _id);
+
             //UIManager.instance.playerTurnText.text = GameManager.players[_id].username + " checked.";
             int amountToCall = 0;
             amountToCall = GameState.instance.highestPlayerAmountInPot - GameManager.players[_id].amountInPot;
@@ -147,15 +169,29 @@ public class ClientHandle : MonoBehaviour
             //{
             //    amountToCall = GameState.instance.highestPlayerAmountInPot - GameManager.players[_id].amountInPot;
             //}
-            GameManager.players[_id].SubtractChips(amountToCall);
-            GameManager.players[_id].amountInPot += amountToCall;
-            GameState.instance.amountInPot += amountToCall;
+            if (amountToCall >= 0)
+            {
+                GameManager.players[_id].SubtractChips(amountToCall);
+                GameManager.players[_id].amountInPot += amountToCall;
+                GameState.instance.amountInPot += amountToCall;
+                GameManager.players[_id].lastBet = amountToCall;
+                PlayerListManager.players[_id].UpdateActionText("CALL");
+
+            }
+            else
+            {
+                PlayerListManager.players[_id].UpdateActionText("CHECK");
+
+            }
+
             Debug.Log($"[CHECK] Received player action: Username: { GameManager.players[_id].username}, ID: {_id} , Action: Check");
 
             // GameManager.players[_id].
         }
+        PlayerListManager.players[_id].UpdateChipTotal();
 
-        UIManager.instance.SetChipTotalText();
+        //UIManager.instance.SetChipTotalText();
+        SliderObject.UpdateMinMaxValues();
 
 
         //To Do Increment Game Turn to next player. 
@@ -171,6 +207,8 @@ public class ClientHandle : MonoBehaviour
         GameState.instance.currentTurnIndex = _packet.ReadInt();
         int currentTurnId = _packet.ReadInt();
         GameState.instance.highestPlayerAmountInPot = _packet.ReadInt();
+        bool roundStarted = _packet.ReadBool();
+        bool roundOver = _packet.ReadBool();
 
 
 
@@ -179,8 +217,17 @@ public class ClientHandle : MonoBehaviour
         //Debug.Log($"Current Index: {GameState.instance.currentTurnIndex}");
 
         UIManager.instance.UpdateGameStateUI();
+        SliderObject.UpdateMinMaxValues();
+
         UIManager.instance.CheckIsTurn();
-        UIManager.instance.SetPlayerTurnText(currentTurnId);
+        if (roundStarted)
+            CommunityCards.instance.gameObject.SetActive(true);
+            PlayerListManager.UpdatePlayerListValues();
+        if (roundOver)
+        {
+            PlayerListManager.RevealCards();
+        }
+        //UIManager.instance.SetPlayerTurnText(currentTurnId);
         //GameManager.instance.SpawnPlayer(_id, _username);
     }
 
@@ -248,8 +295,14 @@ public class ClientHandle : MonoBehaviour
         int _id = _packet.ReadInt();
         Vector3 _position = _packet.ReadVector3();
         if (!GameManager.players.ContainsKey(_id)) { return; }
-
+  
         GameManager.players[_id].transform.position = _position;
+
+        if (GameManager.players[_id].transform.position != _position && _id != Client.instance.myId)
+        {
+            GameManager.players[_id].SetAnimator("walk");
+        }
+
 
     }
 
@@ -268,6 +321,7 @@ public class ClientHandle : MonoBehaviour
 
         Destroy(GameManager.players[_id].gameObject);
         GameManager.players.Remove(_id);
+        PlayerListManager.UpdatePlayerListValues();
     }
 
     //public static void PlayerHealth(Packet _packet)

@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
 
     public Canvas WorldSpaceCanvas;
     //public static Dictionary<int, ItemSpawner> itemSpawners = new Dictionary<int, ItemSpawner>();
+    public GameObject[] playerPrefabs = new GameObject[4];
 
     public GameObject localPlayerPrefab;
     public GameObject playerPrefab;
@@ -36,22 +37,32 @@ public class GameManager : MonoBehaviour
     /// <param name="_id">The player's ID.</param>
     /// <param name="_name">The player's name.</param>
 
-    public void SpawnPlayer(int _id, string _username)
+    public void SpawnPlayer(int _id, string _username, int _prefabId)
     {
         GameObject _player;
         if (_id == Client.instance.myId)
         {
             _player = Instantiate(localPlayerPrefab);
+            
             WorldSpaceCanvas.worldCamera = _player.GetComponentInChildren<Camera>();
+            GameObject comCards = GameObject.FindGameObjectWithTag("CommunityCards");
+            //comCards.GetComponent<PointTowardsObject>().target = _player.transform;
         }
         else
         {
-            _player = Instantiate(playerPrefab);
+            _player = Instantiate(playerPrefabs[_prefabId]);
+   
         }
 
         _player.GetComponent<PlayerManager>().Initialize(_id, _username);
         _player.GetComponent<PlayerManager>().chipTotal = startingChips; // temp hard code for giving chip total
         players.Add(_id, _player.GetComponent<PlayerManager>());
+        if (_id != Client.instance.myId)
+        {
+            _player.GetComponent<NetworkPlayerUI>().Initialize(_player.GetComponent<PlayerManager>());
+
+        }
+        PlayerListManager.CreatePlayerList();
     }
 
     public static void ResetTable()

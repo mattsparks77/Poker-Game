@@ -43,7 +43,7 @@ public class CardManager : MonoBehaviour
         cardGameObjects = new Dictionary<string, CardScriptableObject>();
         LoadCardResourcesIntoGame();
         LoadCards();
-        CreateDeck();
+
     }
 
     public CardScriptableObject TestDealCard()

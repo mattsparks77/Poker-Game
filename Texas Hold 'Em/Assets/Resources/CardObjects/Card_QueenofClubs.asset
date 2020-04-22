@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Card_QueenofClubs
   m_EditorClassIdentifier: 
   value: 12
-  count: 4
+  suitValue: 0
   suit: C
   prefab: {fileID: 1588115104362226, guid: 516c851f6a73d43ccb18bc420d4f133f, type: 3}
+  sprite: {fileID: 6108955302252696131, guid: dad81ad04b4036243b50427213110f50, type: 3}
   path: Assets/CardObjects/Card_ QueenofClubs.asset
   name: QueenofClubs

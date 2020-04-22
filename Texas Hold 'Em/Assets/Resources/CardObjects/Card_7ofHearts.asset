@@ -16,5 +16,6 @@ MonoBehaviour:
   suitValue: 2
   suit: H
   prefab: {fileID: 1507172745296218, guid: 94d79a99dbf314f348a94179d02fc9b5, type: 3}
+  sprite: {fileID: -3594577895051969474, guid: dad81ad04b4036243b50427213110f50, type: 3}
   path: Assets/CardObjects/Card_ 7ofHearts.asset
   name: 7ofHearts
