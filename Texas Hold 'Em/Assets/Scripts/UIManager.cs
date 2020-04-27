@@ -10,16 +10,21 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager instance;
 
+    public GameObject secondPlayerUI;
+    public GameObject backgroundPanel;
+
     public GameObject startMenu;
     public InputField usernameField;
     public Slider _raiseAmount;
     public GameObject foldButton;
     public GameObject raiseButton;
     public GameObject checkCallButton;
+    public TextMeshProUGUI checkCallButtonText;
     public GameObject raiseAmountTextInput;
     public GameObject allInButton;
     public TextMeshProUGUI chipTotal;
     public TextMeshProUGUI playerTurnText;
+    public TextMeshProUGUI totalPotText;
 
     public int _raiseAmnt { get { return int.Parse(raiseAmountTextInput.GetComponentInChildren<TextMeshProUGUI>().text); } set { _raiseAmnt = int.Parse(raiseAmountTextInput.GetComponentInChildren<TextMeshProUGUI>().text); } }
 
@@ -30,6 +35,8 @@ public class UIManager : MonoBehaviour
 
     public GameObject playerUI;
     public int prefabId = 0;
+
+    public bool toggle2D = false;
 
     public PlayerManager playerManager;
 
@@ -46,23 +53,73 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    #region Alternate UI
+    /// <summary>
+    /// Toggles alternate ui, may need to add disabling of other UI and rearranging
+    /// </summary>
+    public void Toggle2DMode()
+    {
+        toggle2D = !toggle2D;
+        //if (toggle2D)
+        //{
+        //    Cursor.visible = true;
+        //}
+        //else
+        //{
+        //    Cursor.visible = false;
+        //}
+        //secondPlayerUI.SetActive(toggle2D);
+        if (toggle2D)
+        {
+            PlayerListManager.instance.listUIContainer.SetActive(false);
 
+            PlayerListManager.instance.alternateUIContainer.SetActive(true);
+            CommunityCards.instance.communityCardsUIObject.transform.position = CommunityCards.instance.communityCardsAlternateUIObject.transform.position;
+            //CommunityCards.instance.communityCardsUIObject.transform.SetParent(CommunityCards.instance.communityCardsAlternateUIObject.transform, false);
+
+        }
+        else
+        {
+            PlayerListManager.instance.alternateUIContainer.SetActive(false);
+            PlayerListManager.instance.listUIContainer.SetActive(true);
+
+            CommunityCards.instance.communityCardsUIObject.transform.position = CommunityCards.instance.originalPosition.transform.position;
+            //CommunityCards.instance.communityCardsUIObject.transform.SetParent(CommunityCards.instance.originalPosition.transform, false);
+
+        }
+
+        backgroundPanel.SetActive(toggle2D);
+
+    }
+
+    #endregion
     public void UpdateGameStateUI()
     {
 
         int amountToCall = GetAmountNeededToCall();
+        if (amountToCall > 0)
+        {
+            checkCallButtonText.text = "Call $" + amountToCall;
+        }
+        else
+        {
+            checkCallButtonText.text = "Check";
 
-        amountInPot.text = $"Pot Size: ${GameState.instance.amountInPot} \nChips Contributed: ${GameManager.players[Client.instance.myId].amountInPot} \nYour Last Bet: ${GameManager.players[Client.instance.myId]?.lastBet}";
+        }
+        totalPotText.text = $"Total Pot: ${GameState.instance.amountInPot}";
+        amountInPot.text = $"Total Pot: ${GameState.instance.amountInPot} \nChips You Bet: ${GameManager.players[Client.instance.myId].amountInPot} \nYour Last Bet: ${GameManager.players[Client.instance.myId]?.lastBet}";
 
         currentBet.text = $"Current Bet: ${GameState.instance.currentBet} \nAmount to Call: ${amountToCall}" ;
 
-        string name = "Your";
-        if (!IsTurn())
-        {
-            name = GameState.playersAtTable[GameState.instance.currentTurnIndex]?.username + "'s";
-        }
-        currentTurnIndex.text = name  + " Turn at Position " + GameState.instance.currentTurnIndex+ "! ";
+        //string name = "Your";
+        //if (!IsTurn())
+        //{
+        //    name = GameState.playersAtTable[GameState.instance.currentTurnIndex]?.username + "'s";
+        //}
+        //currentTurnIndex.text = name  + " Turn at Position " + GameState.instance.currentTurnIndex+ "! ";
     }
+
+   
 
     public void FixedUpdate()
     {
@@ -245,7 +302,7 @@ public class UIManager : MonoBehaviour
     {
 
         startMenu.SetActive(false);
-        playerUI.SetActive(true);
+        //playerUI.SetActive(true);
         usernameField.interactable = false;
         Client.instance.ConnectToServer();
         //SetChipTotalText();

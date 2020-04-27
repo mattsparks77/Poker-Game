@@ -6,6 +6,7 @@ public class CharacterSelect : MonoBehaviour
 {
     public int id = 0;
     public Animator animator;
+    public GameObject StartMenu;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +30,7 @@ public class CharacterSelect : MonoBehaviour
         UIManager.instance.prefabId = id;
 
         animator.Play("attack");
+        OnSelect();
     }
     //public void OnMouseExit()
     //{
@@ -36,8 +38,8 @@ public class CharacterSelect : MonoBehaviour
     //}
     public void OnSelect()
     {
+        StartMenu.SetActive(true);
         animator.enabled = true;
-        animator.Play("idle");
         UIManager.instance.prefabId = id;
     }
 

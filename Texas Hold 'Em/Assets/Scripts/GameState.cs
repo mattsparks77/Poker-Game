@@ -28,10 +28,6 @@ public class GameState : MonoBehaviour
 
     public int highestPlayerAmountInPot { get; internal set; }
 
-    public static void Initialize()
-    {
-        for (int i = 0; i < NUM_SEATS_ALLOWED; i++) playersAtTable.Add(null);
-    }
 
     private void Awake()
     {

@@ -9,7 +9,8 @@ public class SliderObject : MonoBehaviour
     public static SliderObject instance;
 
     public Slider slider;
-    public TextMeshProUGUI value;
+
+    public TMP_InputField inputField;
 
     private void Awake()
     {
@@ -24,10 +25,61 @@ public class SliderObject : MonoBehaviour
         }
     }
 
+    public bool CheckLegalRaise(int num)
+    {
+        int myChips = GameManager.players[Client.instance.myId].chipTotal;
+        if (num > myChips)
+        {
+            return false;
+        }
+        return true;
+    }
+
+    public void SetSliderValue()
+    {
+        
+        int toSet;
+        bool legalInput = int.TryParse(inputField.text, out toSet);
+        Debug.Log($"To set = {toSet} ");// int.parse = {int.Parse(value.text)}");
+        int myChips = GameManager.players[Client.instance.myId].chipTotal;
+        if (!legalInput)
+        {
+            return;
+        }
+        // cant bet more chips than you have and negative chips
+        if (toSet > myChips)
+        {
+            toSet = myChips;
+        }
+        else if (toSet < 0)
+        {
+            toSet = 0;
+        }
+        slider.value = toSet;
+        RoundSliderValue();
+    }
+
+    public void IncrementSlider()
+    {
+        slider.value += 5;
+    }
+
+    public void DecrementSlider()
+    {
+        slider.value -= 5;
+    }
+
+
+
+    public void RoundSliderValue()
+    {
+        slider.value = Mathf.RoundToInt(slider.value / 5) * 5;
+    }
+
     public void UpdateValue()
     {
-       // slider.value = slider.value*5;
-        value.text = "$"+ slider.value.ToString();
+        RoundSliderValue();
+        inputField.text = slider.value.ToString();
     }
 
     private void OnEnable()
@@ -37,15 +89,14 @@ public class SliderObject : MonoBehaviour
 
         slider.maxValue = 1000;
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     public static void UpdateMinMaxValues()
     {
+        if (instance == null)
+        {
+            return;
+        }
         instance.slider.minValue = 0;
         int chips = GameManager.players[Client.instance.myId].chipTotal;
         if (chips < 0)

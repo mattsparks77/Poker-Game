@@ -8,7 +8,7 @@ public class PlayerManager : MonoBehaviour
     public string username;
     public int tableIndex = -1;
 
-    public bool isPlayingHand;
+    public bool isPlayingHand = true;
 
     public bool isFolding;
     public bool isCheckCalling;
@@ -54,7 +54,11 @@ public class PlayerManager : MonoBehaviour
         if (cards.Count >= 2)
         {
             receivedCards = true;
-            PlayerListManager.players[id].UpdateCardSprites();
+            if (PlayerListManager.players.ContainsKey(id))
+            {
+                PlayerListManager.players[id].UpdateCardSprites();
+
+            }
 
         }
         if (handPlaceHolder.nextEmptySpot > 2)
@@ -65,19 +69,27 @@ public class PlayerManager : MonoBehaviour
 
     }
 
-    public void MakeBet(int _chips)
-    {
-        chipTotal -= _chips;
-    }
 
     public void AddChips(int _chips)
     {
+
         chipTotal += _chips;
+        if (!PlayerListManager.players.ContainsKey(id))
+        {
+            return;
+        }
+        //PlayerListManager.players[id].UpdateChipChange($"+${_chips}", Color.green, 1.5f);
     }
 
     public void SubtractChips(int _chips)
     {
+
         chipTotal -= _chips;
+        if (!PlayerListManager.players.ContainsKey(id))
+        {
+            return;
+        }
+       // PlayerListManager.players[id].UpdateChipChange($"-${_chips}", Color.red, 1.5f);
     }
 
 

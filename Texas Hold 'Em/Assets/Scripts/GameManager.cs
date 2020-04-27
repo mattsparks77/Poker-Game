@@ -5,10 +5,11 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
 
-    public int startingChips = 1000;
+    public int startingChips = 2000;
     public static GameManager instance;
 
     public static Dictionary<int, PlayerManager> players = new Dictionary<int, PlayerManager>();
+    public static Dictionary<int, PlayerManager> tableIndexPlayerLookup = new Dictionary<int, PlayerManager>();
 
 
     public Canvas WorldSpaceCanvas;
@@ -62,7 +63,7 @@ public class GameManager : MonoBehaviour
             _player.GetComponent<NetworkPlayerUI>().Initialize(_player.GetComponent<PlayerManager>());
 
         }
-        PlayerListManager.CreatePlayerList();
+        GameState.playersAtTable.Add(_player.GetComponent<PlayerManager>());
     }
 
     public static void ResetTable()

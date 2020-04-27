@@ -111,91 +111,91 @@ ScriptsOnlyBuild:
     - Class: 109
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 11258}
+      Script: {instanceID: 11256}
     - Class: 114
-      Script: {instanceID: 11290}
+      Script: {instanceID: 11260}
     - Class: 114
-      Script: {instanceID: 11436}
+      Script: {instanceID: 11292}
     - Class: 114
-      Script: {instanceID: 11456}
+      Script: {instanceID: 11438}
     - Class: 114
       Script: {instanceID: 11458}
     - Class: 114
-      Script: {instanceID: 11498}
+      Script: {instanceID: 11460}
     - Class: 114
-      Script: {instanceID: 11526}
+      Script: {instanceID: 11500}
     - Class: 114
-      Script: {instanceID: 11626}
+      Script: {instanceID: 11528}
     - Class: 114
-      Script: {instanceID: 11646}
+      Script: {instanceID: 11546}
     - Class: 114
-      Script: {instanceID: 11648}
+      Script: {instanceID: 11630}
     - Class: 114
-      Script: {instanceID: 11692}
+      Script: {instanceID: 11650}
+    - Class: 114
+      Script: {instanceID: 11652}
     - Class: 114
       Script: {instanceID: 11696}
     - Class: 114
-      Script: {instanceID: 11756}
+      Script: {instanceID: 11700}
     - Class: 114
-      Script: {instanceID: 11874}
+      Script: {instanceID: 11760}
     - Class: 114
-      Script: {instanceID: 11930}
+      Script: {instanceID: 11878}
     - Class: 114
-      Script: {instanceID: 12006}
+      Script: {instanceID: 11934}
     - Class: 114
-      Script: {instanceID: 12036}
+      Script: {instanceID: 12010}
     - Class: 114
-      Script: {instanceID: 12252}
+      Script: {instanceID: 12040}
     - Class: 114
-      Script: {instanceID: 12506}
+      Script: {instanceID: 12256}
     - Class: 114
-      Script: {instanceID: 12616}
+      Script: {instanceID: 12510}
     - Class: 114
-      Script: {instanceID: 12734}
+      Script: {instanceID: 12620}
     - Class: 114
-      Script: {instanceID: 12772}
+      Script: {instanceID: 12738}
     - Class: 114
       Script: {instanceID: 12776}
     - Class: 114
-      Script: {instanceID: 12790}
+      Script: {instanceID: 12780}
     - Class: 114
-      Script: {instanceID: 12812}
+      Script: {instanceID: 12794}
     - Class: 114
-      Script: {instanceID: 13030}
+      Script: {instanceID: 12816}
     - Class: 114
-      Script: {instanceID: 13038}
+      Script: {instanceID: 13034}
     - Class: 114
-      Script: {instanceID: 13112}
+      Script: {instanceID: 13042}
     - Class: 114
-      Script: {instanceID: 13124}
+      Script: {instanceID: 13094}
     - Class: 114
-      Script: {instanceID: 13134}
+      Script: {instanceID: 13118}
     - Class: 114
-      Script: {instanceID: 13222}
+      Script: {instanceID: 13130}
     - Class: 114
-      Script: {instanceID: 13294}
+      Script: {instanceID: 13140}
     - Class: 114
-      Script: {instanceID: 13332}
+      Script: {instanceID: 13228}
     - Class: 114
-      Script: {instanceID: 13354}
+      Script: {instanceID: 13300}
     - Class: 114
-      Script: {instanceID: 13364}
+      Script: {instanceID: 13338}
     - Class: 114
-      Script: {instanceID: 13468}
+      Script: {instanceID: 13360}
     - Class: 114
-      Script: {instanceID: 13514}
+      Script: {instanceID: 13370}
     - Class: 114
-      Script: {instanceID: 13576}
+      Script: {instanceID: 13474}
     - Class: 114
-      Script: {instanceID: 13604}
+      Script: {instanceID: 13520}
     - Class: 114
-      Script: {instanceID: 13642}
+      Script: {instanceID: 13582}
     - Class: 114
-      Script: {instanceID: 105824}
+      Script: {instanceID: 13610}
     - Class: 114
-      Script: {instanceID: 105830}
-    - Class: 114
-      Script: {instanceID: 188370}
+      Script: {instanceID: 13648}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -225,6 +225,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Postprocessing.Runtime.dll
     namespaceName: UnityEngine.Rendering.PostProcessing
     className: PostProcessLayer
+  - hash:
+      serializedVersion: 2
+      Hash: 7ee35720c3489c95c3b8349cea33c582
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: PlayerListObject
   - hash:
       serializedVersion: 2
       Hash: 4bc4346a71a8df53a6b106f68ef3a190
@@ -357,6 +363,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
     className: TMP_InputField
+  - hash:
+      serializedVersion: 2
+      Hash: 50986e5c1b24607c6a70811c6b8f2e5c
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: SliderObject
   - hash:
       serializedVersion: 2
       Hash: 7ab0e790220bdca831fdd886b339039d
@@ -827,6 +839,12 @@ ScriptsOnlyBuild:
     className: DataPrivacyButton
   - hash:
       serializedVersion: 2
+      Hash: 3591dc1dae0325ad74b0bb3acb1d12e1
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: PlayerListManager
+  - hash:
+      serializedVersion: 2
       Hash: 27e5341178f188b89bdc6495710b590c
     assemblyName: Assembly-CSharp.dll
     namespaceName: TMPro.Examples
@@ -923,7 +941,7 @@ ScriptsOnlyBuild:
     className: VertexZoom
   - hash:
       serializedVersion: 2
-      Hash: ca35e6074f0c71f83392a5ece782d5e8
+      Hash: 12e9cc7063e181a291de94a9e4b81691
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: CharacterSelect
@@ -947,7 +965,7 @@ ScriptsOnlyBuild:
     className: NetworkPlayerUI
   - hash:
       serializedVersion: 2
-      Hash: 4a0c06660133e613d48e4d0d9fdd361f
+      Hash: 0ab94932f76a7eab04baa879be8a73bf
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: UIManager
@@ -1073,7 +1091,7 @@ ScriptsOnlyBuild:
     className: TestRunCallbackListener
   - hash:
       serializedVersion: 2
-      Hash: 43370c0fee686f9b32f0a5062612c12b
+      Hash: dfff0450e44c4a6263f00ba77c6d5f4e
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: CommunityCards
@@ -1137,26 +1155,8 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PointTowardsObject
-  - hash:
-      serializedVersion: 2
-      Hash: d386add5fcf3989a6f404532ed2684ed
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: PlayerListObject
-  - hash:
-      serializedVersion: 2
-      Hash: 3207c681ebec1ac004c2706c681c848c
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: PlayerListManager
-  - hash:
-      serializedVersion: 2
-      Hash: 2f16641ef2999e4d458adfcc491df56a
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: SliderObject
   platform: 19
   scenePathNames:
   - Assets/Scenes/NetworkGame.unity
   playerPath: C:/Users/Matt/Documents/Unity Projects/Texas Holdem/Poker-Game/Texas
-    Hold 'Em/Builds/Texas Hold 'Em.exe
+    Hold 'Em/Builds/Pc Builds/Texas Hold 'Em.exe

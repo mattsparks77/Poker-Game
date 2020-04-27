@@ -114,6 +114,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  communityCardsUIObject: {fileID: 0}
+  communityCardsAlternateUIObject: {fileID: 0}
   cardBack: {fileID: -7995543362233894077, guid: dad81ad04b4036243b50427213110f50,
     type: 3}
 --- !u!1 &7651045180021623016

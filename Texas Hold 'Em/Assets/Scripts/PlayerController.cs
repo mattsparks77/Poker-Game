@@ -7,16 +7,22 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(KeyCode.Tab))
         {
-            //Do something fun when a player clicks
-            //ClientSend.PlayerShoot(camTransform.forward);
+            Toggle2DMode();
         }
     }
 
     private void FixedUpdate()
     {
         SendInputToServer();
+
+    }
+
+    public void Toggle2DMode()
+    {
+        //Cursor.visible = !Cursor.visible;
+        UIManager.instance.Toggle2DMode();
     }
 
     /// <summary>Sends player input to the server.</summary>

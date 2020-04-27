@@ -47,7 +47,7 @@ public class CameraController : MonoBehaviour
 
     private void ToggleCursorMode()
     {
-        //Cursor.visible = !Cursor.visible;
+       
 
         if (Cursor.lockState == CursorLockMode.None)
         {

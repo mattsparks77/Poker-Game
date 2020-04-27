@@ -47,12 +47,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3724edd9b4c1f242980cbd37e5b9427, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  secondPlayerUI: {fileID: 0}
+  backgroundPanel: {fileID: 0}
   startMenu: {fileID: 0}
   usernameField: {fileID: 0}
   _raiseAmount: {fileID: 0}
   foldButton: {fileID: 0}
   raiseButton: {fileID: 0}
   checkCallButton: {fileID: 0}
+  checkCallButtonText: {fileID: 0}
   raiseAmountTextInput: {fileID: 0}
   allInButton: {fileID: 0}
   chipTotal: {fileID: 0}
@@ -62,6 +65,7 @@ MonoBehaviour:
   currentTurnIndex: {fileID: 0}
   playerUI: {fileID: 0}
   prefabId: 0
+  toggle2D: 0
   playerManager: {fileID: 0}
 --- !u!114 &1388100043
 MonoBehaviour:

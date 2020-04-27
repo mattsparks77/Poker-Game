@@ -11,6 +11,8 @@ public class CommunityCards : MonoBehaviour
     public static int nextEmptySpot = 0;
 
     public GameObject communityCardsUIObject;
+    public GameObject communityCardsAlternateUIObject;
+    public Transform originalPosition;
     public Sprite cardBack;
 
     private void Awake()
@@ -44,7 +46,7 @@ public class CommunityCards : MonoBehaviour
         placeholders[2] = this.transform.GetChild(2);
         placeholders[3] = this.transform.GetChild(3);
         placeholders[4] = this.transform.GetChild(4);
-        communityCardsUIObject.SetActive(true);
+   
 
     }
 }
