@@ -40,10 +40,18 @@ public class PlayerListManager : MonoBehaviour
     {
         for (int i = 0; i < players.Count; i++)
         {
-            players[i].bigBlindChip.SetActive(false);
-            playersAlternate[i].bigBlindChip.SetActive(false);
-            players[i].smallBlindChip.SetActive(false);
-            playersAlternate[i].smallBlindChip.SetActive(false);
+            if (players.ContainsKey(i))
+            {
+                players[i].bigBlindChip.SetActive(false);
+                players[i].smallBlindChip.SetActive(false);
+            }
+
+            if (playersAlternate.ContainsKey(i))
+            {
+                playersAlternate[i].bigBlindChip.SetActive(false);
+                playersAlternate[i].smallBlindChip.SetActive(false);
+            }
+
         }
     }
 

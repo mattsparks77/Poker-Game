@@ -55,16 +55,22 @@ MonoBehaviour:
   foldButton: {fileID: 0}
   raiseButton: {fileID: 0}
   checkCallButton: {fileID: 0}
+  pauseButtonText: {fileID: 0}
+  nextRoundCountdownObject: {fileID: 0}
   checkCallButtonText: {fileID: 0}
   raiseAmountTextInput: {fileID: 0}
   allInButton: {fileID: 0}
   chipTotal: {fileID: 0}
   playerTurnText: {fileID: 0}
+  totalPotText: {fileID: 0}
+  updateCountdownUIObject: {fileID: 0}
   amountInPot: {fileID: 0}
   currentBet: {fileID: 0}
   currentTurnIndex: {fileID: 0}
   playerUI: {fileID: 0}
   prefabId: 0
+  isPaused: 0
+  countdownTimer: 5
   toggle2D: 0
   playerManager: {fileID: 0}
 --- !u!114 &1388100043

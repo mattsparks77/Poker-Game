@@ -318,6 +318,8 @@ public class Client : MonoBehaviour
             { (int)ServerPackets.pokerState, ClientHandle.PokerState },
             { (int)ServerPackets.setChips, ClientHandle.SetChips },
             { (int)ServerPackets.roundReset, ClientHandle.RoundReset },
+            { (int)ServerPackets.roundOver, ClientHandle.RoundOver },
+            { (int)ServerPackets.playerPause, ClientHandle.PlayerPause },
 
         };
         Debug.Log("Initialized packets.");

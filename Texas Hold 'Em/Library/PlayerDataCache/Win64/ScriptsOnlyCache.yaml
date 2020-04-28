@@ -965,7 +965,7 @@ ScriptsOnlyBuild:
     className: NetworkPlayerUI
   - hash:
       serializedVersion: 2
-      Hash: 0ab94932f76a7eab04baa879be8a73bf
+      Hash: 653f217475fc4365cce543437db3e8b1
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: UIManager

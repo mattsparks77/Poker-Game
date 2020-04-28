@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
-
+using System;
 
 public class UIManager : MonoBehaviour
 {
@@ -19,12 +19,17 @@ public class UIManager : MonoBehaviour
     public GameObject foldButton;
     public GameObject raiseButton;
     public GameObject checkCallButton;
+    public TextMeshProUGUI pauseButtonText;
+
+    public GameObject nextRoundCountdownObject;
     public TextMeshProUGUI checkCallButtonText;
     public GameObject raiseAmountTextInput;
     public GameObject allInButton;
     public TextMeshProUGUI chipTotal;
     public TextMeshProUGUI playerTurnText;
     public TextMeshProUGUI totalPotText;
+    public TextMeshProUGUI updateCountdownUIObject;
+
 
     public int _raiseAmnt { get { return int.Parse(raiseAmountTextInput.GetComponentInChildren<TextMeshProUGUI>().text); } set { _raiseAmnt = int.Parse(raiseAmountTextInput.GetComponentInChildren<TextMeshProUGUI>().text); } }
 
@@ -35,6 +40,9 @@ public class UIManager : MonoBehaviour
 
     public GameObject playerUI;
     public int prefabId = 0;
+
+    public bool isPaused;
+    public int countdownTimer = 5;
 
     public bool toggle2D = false;
 
@@ -52,6 +60,19 @@ public class UIManager : MonoBehaviour
             Destroy(this);
         }
     }
+
+
+    public void TogglePause()
+    {
+        isPaused = !isPaused;
+        ClientSend.PlayerPause();
+        if (isPaused)
+        {
+            pauseButtonText.text = "PLAY";
+        }
+
+    }
+
 
     #region Alternate UI
     /// <summary>
@@ -90,6 +111,40 @@ public class UIManager : MonoBehaviour
 
         backgroundPanel.SetActive(toggle2D);
 
+    }
+
+    internal void UpdateCountdownUI(bool isPaused)
+    {
+        if (isPaused)
+        {
+            updateCountdownUIObject.text = $"PAUSED";
+        }
+        else
+        {
+            updateCountdownUIObject.text = $"Next round in.. {countdownTimer}";
+
+        }
+    }
+
+    internal IEnumerator RoundCountdown()
+    {
+        while (!isPaused && countdownTimer >= -1)
+        {
+            UpdateCountdownUI(false);
+            yield return new WaitForSeconds(1f);
+            countdownTimer--;
+        }
+        if (isPaused)
+        {
+            UpdateCountdownUI(true);
+
+        }
+
+    }
+
+    internal void StartNextRoundCountdown()
+    {
+        StartCoroutine(RoundCountdown());
     }
 
     #endregion

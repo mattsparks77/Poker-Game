@@ -34,6 +34,15 @@ public class ClientSend : MonoBehaviour
         }
     }
 
+    public static void PlayerPause()
+    {
+        using (Packet _packet = new Packet((int)ClientPackets.playerPause))
+        {
+            _packet.Write(UIManager.instance.isPaused);
+            SendTCPData(_packet);
+        }
+    }
+
     public static void SendStartRound() // update later for sending player table seat indexes to server
     {
         using (Packet _packet = new Packet((int)ClientPackets.sendStartRound))

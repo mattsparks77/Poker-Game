@@ -46,6 +46,10 @@ public class ClientHandle : MonoBehaviour
 
     public static void RoundReset(Packet _packet)
     {
+        UIManager.instance.nextRoundCountdownObject.gameObject.SetActive(false);
+        UIManager.instance.countdownTimer = 5;
+
+        UIManager.instance.isPaused = false;
         CardDealer.instance.DeleteCardsInPlay();
         CommunityCards.nextEmptySpot = 0;
         CardManager.instance.communityCards.Clear();
@@ -75,17 +79,44 @@ public class ClientHandle : MonoBehaviour
         }
         //Debug.Log($"Receiving Card.. ID: {_id}, Suit: {suit}, Rank: {rank}");
         GameManager.players[_id].AddCardToHand(suit, rank);
+        
+    }
+
+    public static void RoundOver(Packet _packet)
+    {
+        UIManager.instance.nextRoundCountdownObject.gameObject.SetActive(true);
+
+        //UIManager.instance.updateCountdownUIObject.gameObject.SetActive(true);
+
+        UIManager.instance.StartNextRoundCountdown();
+
+    }
 
 
-        
+    public static void PlayerPause(Packet _packet)
+    {
+        bool isPaused = _packet.ReadBool();
+        UIManager.instance.isPaused = isPaused;
+        if (!isPaused)
+        {
+            UIManager.instance.pauseButtonText.text = "PAUSE";
+            UIManager.instance.StartNextRoundCountdown();
+        }
+        else
+        {
+            UIManager.instance.pauseButtonText.text = "PLAY";
 
-        
-        
-        //if (_id == Client.instance.myId)
+        }
+        //if (isPaused)
         //{
-        //    GameManager.players[_id].AddCardToHand(suit, rank);
+        //    UIManager.instance.isPaused = false;
         //}
-        
+        //else
+        //{
+        //    UIManager.instance.isPaused = true;
+        //}
+
+
     }
 
     /// <summary>
@@ -245,7 +276,7 @@ public class ClientHandle : MonoBehaviour
         if (roundStarted)
         {
             PlayerListManager.CreatePlayerList();
-
+            UIManager.instance.countdownTimer = 5;
             CommunityCards.instance.gameObject.SetActive(true);
             UIManager.instance.playerUI.SetActive(true);
             PlayerListManager.UpdatePlayerListValues();
@@ -253,7 +284,7 @@ public class ClientHandle : MonoBehaviour
             CommunityCards.instance.communityCardsUIObject.SetActive(true);
             if (smallBlindIndex != -1 &&  bigBlindIndex != -1)//smallBlindIndex != GameState.instance.smallBlindIndex && bigBlindIndex != GameState.instance.bigBlindIndex)
             {
-                Debug.Log("Setting blind chip ui");
+
                 GameState.instance.smallBlindIndex = smallBlindIndex;
 
                 GameState.instance.bigBlindIndex = bigBlindIndex;
@@ -357,8 +388,9 @@ public class ClientHandle : MonoBehaviour
         int _id = _packet.ReadInt();
 
         
-        GameManager.players.Remove(_id);
+        
         Destroy(GameManager.players[_id].gameObject);
+        GameManager.players.Remove(_id);
         PlayerListManager.UpdatePlayerListValues();
         PlayerListManager.UpdatePlayerListAlternateUI();
     }
