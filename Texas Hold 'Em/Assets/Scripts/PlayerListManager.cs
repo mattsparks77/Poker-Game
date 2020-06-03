@@ -33,12 +33,32 @@ public class PlayerListManager : MonoBehaviour
         }
     }
 
+
+    public void ResetAllActionText()
+    {
+        for (int i = 1; i <= players.Count; i++)
+        {
+            if (players.ContainsKey(i))
+            {
+                
+                players[i].UpdateActionText("");
+            }
+
+            if (playersAlternate.ContainsKey(i))
+            {
+                playersAlternate[i].UpdateActionText("");
+
+            }
+
+        }
+    }
     /// <summary>
     /// Disables blind ui for both alternate and normal UI.
     /// </summary>
     public void DisableAllBlindUI()
     {
-        for (int i = 0; i < players.Count; i++)
+        // index starts at 1 since player IDs start at 1 not 0
+        for (int i = 1; i <= players.Count; i++)
         {
             if (players.ContainsKey(i))
             {
@@ -125,9 +145,17 @@ public class PlayerListManager : MonoBehaviour
             }
             else
             {
-                p.UpdateCardSprites();
+                //p.UpdateCardSprites();
                 p.HideCards();
                 p.UpdateChipTotal(p.player.chipTotal);
+            }
+            if (GameState.instance.currentTurnIndex == p.player.tableIndex)
+            {
+                p.panel.color = Color.green;
+            }
+            else
+            {
+                p.panel.color = Color.white;
             }
             if (p.player.id == Client.instance.myId)
             {
@@ -150,7 +178,7 @@ public class PlayerListManager : MonoBehaviour
             }
             else
             {
-                p.UpdateCardSprites();
+                //p.UpdateCardSprites();
                 p.HideCards();
                 p.UpdateChipTotal(p.player.chipTotal);
             }
@@ -162,8 +190,12 @@ public class PlayerListManager : MonoBehaviour
             {
                 p.panel.color = instance.originalPanelColor;
             }
-           
-            
+            if (p.player.id == Client.instance.myId)
+            {
+                p.RevealCards();
+            }
+
+
 
         }
     }

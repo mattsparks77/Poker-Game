@@ -57,6 +57,7 @@ public class PlayerManager : MonoBehaviour
             if (PlayerListManager.players.ContainsKey(id))
             {
                 PlayerListManager.players[id].UpdateCardSprites();
+                PlayerListManager.playersAlternate[id].UpdateCardSprites();
 
             }
 
@@ -101,6 +102,9 @@ public class PlayerManager : MonoBehaviour
         raiseAmount = 0;
         lastBet = 0;
         receivedCards = false;
+        isFolding = false;
+        isCheckCalling = false;
+        isRaising = false;
     }
 
     public void SetAnimator(string anim)

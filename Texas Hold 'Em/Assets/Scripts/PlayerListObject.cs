@@ -92,7 +92,7 @@ public class PlayerListObject : MonoBehaviour
     public void UpdateCardSprites()
     {
         if (player == null) { return; }
-        Debug.Log($"Suit Val 0: {player.cards[0].suitValue}");
+
 
         string card1 = CardDealer.instance.SuitValueToStringConverter(player.cards[0].suitValue, player.cards[0].value);
         string card2 = CardDealer.instance.SuitValueToStringConverter(player.cards[1].suitValue, player.cards[1].value);

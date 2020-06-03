@@ -10,10 +10,15 @@ public enum Rank
 
 public enum Suit
 {
-    CLUB,
-    DIAMOND,
-    HEART,
-    SPADE
+    Club,
+    Diamond,
+    Heart,
+    Spade,
+
+    //Spade,
+    //Heart,
+    //Diamond,
+    //Club,
 }
 public class Card
 {

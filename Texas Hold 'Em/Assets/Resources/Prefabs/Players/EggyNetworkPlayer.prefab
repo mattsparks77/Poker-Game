@@ -57,6 +57,7 @@ MonoBehaviour:
   raiseAmount: 0
   amountInPot: 0
   lastBet: 0
+  receivedCards: 0
   chipTotal: 0
   UsernameUI: {fileID: 7149273878457382186}
   cards: []
@@ -834,20 +835,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.5590279, y: 0.53813994, z: 0.6444438}
   m_Center: {x: -0.007528186, y: 0.29568547, z: 0.026779205}
---- !u!114 &5374337761316516298
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8357677810429198489}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a47f827d3fb6abd4fa6f0b02a9ad02f1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  id: 0
-  animator: {fileID: 8357677810429198494}
 --- !u!1001 &2768171894408607663
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -932,21 +919,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f18688a68b6ae884cb54f6c8cda1a5f9, type: 3}
---- !u!4 &8357677810429198495 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6167374145286698800, guid: f18688a68b6ae884cb54f6c8cda1a5f9,
-    type: 3}
-  m_PrefabInstance: {fileID: 2768171894408607663}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &8357677810429198494 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 6167374145286698801, guid: f18688a68b6ae884cb54f6c8cda1a5f9,
-    type: 3}
-  m_PrefabInstance: {fileID: 2768171894408607663}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &8357677810429198489 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6167374145286698806, guid: f18688a68b6ae884cb54f6c8cda1a5f9,
+    type: 3}
+  m_PrefabInstance: {fileID: 2768171894408607663}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8357677810429198495 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6167374145286698800, guid: f18688a68b6ae884cb54f6c8cda1a5f9,
     type: 3}
   m_PrefabInstance: {fileID: 2768171894408607663}
   m_PrefabAsset: {fileID: 0}

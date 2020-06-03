@@ -60,10 +60,7 @@ public class ClientHandle : MonoBehaviour
         {
             p.Reset();
         }
-        foreach (PlayerListObject p in PlayerListManager.players.Values)
-        {
-            p.ResetAction(1.0f);
-        }
+        PlayerListManager.instance.ResetAllActionText();
         
     }
 
@@ -84,11 +81,21 @@ public class ClientHandle : MonoBehaviour
 
     public static void RoundOver(Packet _packet)
     {
-        UIManager.instance.nextRoundCountdownObject.gameObject.SetActive(true);
+        bool isGameOver = _packet.ReadBool();
+        if (isGameOver)
+        {
+            PlayerListManager.RevealCards();
 
-        //UIManager.instance.updateCountdownUIObject.gameObject.SetActive(true);
+            UIManager.instance.nextRoundCountdownObject.gameObject.SetActive(true);
 
-        UIManager.instance.StartNextRoundCountdown();
+            //UIManager.instance.updateCountdownUIObject.gameObject.SetActive(true);
+
+            UIManager.instance.StartNextRoundCountdown();
+            return;
+        }
+        PlayerListManager.instance.ResetAllActionText();
+        
+      
 
     }
 
@@ -141,9 +148,15 @@ public class ClientHandle : MonoBehaviour
         GameManager.players[_id].SubtractChips(_subtractAmount);
         if (_isWinner && _addAmount > 0)
         {
-            PlayerListManager.players[_id].UpdateActionText($"WINNER! +${_addAmount} with {winningHand}");
-            PlayerListManager.playersAlternate[_id].UpdateActionText($"WINNER! +${_addAmount} with {winningHand}");
+            string wCards = $"with {winningHand}";
+            if (winningHand.Length <= 0)
+            {
+                wCards = "";
+            }
+            PlayerListManager.players[_id].UpdateActionText($"WINNER! +${_addAmount} {wCards}");
+            PlayerListManager.playersAlternate[_id].UpdateActionText($"WINNER! +${_addAmount} {wCards}");
             UIManager.instance.ToggleTurnUI(false);
+            PlayerListManager.RevealCards();
         }
         if (_setAmount != 0)
         {
@@ -152,6 +165,7 @@ public class ClientHandle : MonoBehaviour
     
         if (_isBlinds)
         {
+
             GameManager.players[_id].amountInPot = _subtractAmount;
          
 
@@ -214,12 +228,20 @@ public class ClientHandle : MonoBehaviour
 
             if (amountToCall >= 0)
             {
+                if (amountToCall > GameManager.players[_id].chipTotal)
+                {
+                    amountToCall = GameManager.players[_id].chipTotal;
+
+                }
+
                 GameManager.players[_id].SubtractChips(amountToCall);
                 GameManager.players[_id].amountInPot += amountToCall;
                 GameState.instance.amountInPot += amountToCall;
                 GameManager.players[_id].lastBet = amountToCall;
-                PlayerListManager.players[_id].UpdateActionText("CALL");
-                PlayerListManager.playersAlternate[_id].UpdateActionText("CALL");
+
+   
+                PlayerListManager.players[_id].UpdateActionText("CALL $" + amountToCall );
+                PlayerListManager.playersAlternate[_id].UpdateActionText("CALL $" + amountToCall);
 
             }
             else
@@ -250,10 +272,10 @@ public class ClientHandle : MonoBehaviour
         bool roundStarted = _packet.ReadBool();
         bool roundOver = _packet.ReadBool();
 
+        bool sendingBlindIndexes = _packet.ReadBool();
         int smallBlindIndex = _packet.ReadInt();
         int bigBlindIndex = _packet.ReadInt();
-        Debug.Log($"[PokerState] BigBlind Index: {bigBlindIndex}");
-        Debug.Log($"[PokerState] SmallBlind Index: {smallBlindIndex}");
+
 
 
 
@@ -282,16 +304,17 @@ public class ClientHandle : MonoBehaviour
             PlayerListManager.UpdatePlayerListValues();
             PlayerListManager.UpdatePlayerListAlternateUI();
             CommunityCards.instance.communityCardsUIObject.SetActive(true);
-            if (smallBlindIndex != -1 &&  bigBlindIndex != -1)//smallBlindIndex != GameState.instance.smallBlindIndex && bigBlindIndex != GameState.instance.bigBlindIndex)
-            {
-
-                GameState.instance.smallBlindIndex = smallBlindIndex;
-
-                GameState.instance.bigBlindIndex = bigBlindIndex;
-                PlayerListManager.instance.EnableBlindUI(bigBlindIndex, smallBlindIndex);
-            }
+           
         }
+        if (sendingBlindIndexes && smallBlindIndex != -1 && bigBlindIndex != -1)//smallBlindIndex != GameState.instance.smallBlindIndex && bigBlindIndex != GameState.instance.bigBlindIndex)
+        {
+            Debug.Log($"[PokerState] BigBlind Index: {bigBlindIndex} Previous Index: {GameState.instance.bigBlindIndex}");
+            Debug.Log($"[PokerState] SmallBlind Index: {smallBlindIndex} Previous Index: {GameState.instance.smallBlindIndex}");
+            GameState.instance.smallBlindIndex = smallBlindIndex;
 
+            GameState.instance.bigBlindIndex = bigBlindIndex;
+            PlayerListManager.instance.EnableBlindUI(bigBlindIndex, smallBlindIndex);
+        }
 
         UIManager.instance.CheckIsTurn();
         //UIManager.instance.SetPlayerTurnText(currentTurnId);

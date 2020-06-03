@@ -82,12 +82,17 @@ public class CardScriptableObject : ScriptableObject
 
     public override int GetHashCode()
     {
-        
-        
         int hash = 17;
         hash = hash * 23 + value;
         return hash;
         
+    }
+    struct Foo
+    {
+        void punch()
+        {
+            
+        }
     }
 
     public override bool Equals(object o)

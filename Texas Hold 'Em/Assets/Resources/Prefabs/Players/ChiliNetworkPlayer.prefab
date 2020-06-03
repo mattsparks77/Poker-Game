@@ -278,20 +278,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1.781937, z: 1}
   m_Center: {x: -0, y: 0.3909685, z: 0}
---- !u!114 &4651395184495372571
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1229577711562218934}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a47f827d3fb6abd4fa6f0b02a9ad02f1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  id: 1
-  animator: {fileID: 1229577711562218933}
 --- !u!1 &4029920062702564550
 GameObject:
   m_ObjectHideFlags: 0
@@ -614,6 +600,7 @@ MonoBehaviour:
   raiseAmount: 0
   amountInPot: 0
   lastBet: 0
+  receivedCards: 0
   chipTotal: 0
   UsernameUI: {fileID: 4029920062702564550}
   cards: []
@@ -917,21 +904,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6ec7915c822d99b40b7e70b060cebd61, type: 3}
---- !u!4 &1229577711562218932 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2632219127734772969, guid: 6ec7915c822d99b40b7e70b060cebd61,
-    type: 3}
-  m_PrefabInstance: {fileID: 3861787424694335837}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &1229577711562218933 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 2632219127734772968, guid: 6ec7915c822d99b40b7e70b060cebd61,
-    type: 3}
-  m_PrefabInstance: {fileID: 3861787424694335837}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1229577711562218934 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2632219127734772971, guid: 6ec7915c822d99b40b7e70b060cebd61,
+    type: 3}
+  m_PrefabInstance: {fileID: 3861787424694335837}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1229577711562218932 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2632219127734772969, guid: 6ec7915c822d99b40b7e70b060cebd61,
     type: 3}
   m_PrefabInstance: {fileID: 3861787424694335837}
   m_PrefabAsset: {fileID: 0}

@@ -256,6 +256,8 @@ public class UIManager : MonoBehaviour
         }
         return GameState.instance.highestPlayerAmountInPot - GameManager.players[Client.instance.myId].amountInPot;
     }
+
+
     // useful for accessing current players data ... GameManager.players[Client.instance.myId]
     public void SendRaiseAmountToServer()
     {
