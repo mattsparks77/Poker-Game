@@ -6,7 +6,7 @@ public class PlayerManager : MonoBehaviour
 {
     public int id;
     public string username;
-    public int tableIndex = -1;
+    public int tableIndex;
 
     public bool isPlayingHand = true;
 
@@ -27,10 +27,11 @@ public class PlayerManager : MonoBehaviour
 
     public HandPlaceholder handPlaceHolder;
 
-    public void Initialize(int _id, string _username)
+    public void Initialize(int _id, string _username, int _tableIndex)
     {
         id = _id;
         username = _username;
+        tableIndex = _tableIndex;
         cards = new List<CardScriptableObject>();
         handPlaceHolder = GetComponentInChildren<HandPlaceholder>();
 

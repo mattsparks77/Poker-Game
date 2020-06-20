@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
     /// <param name="_id">The player's ID.</param>
     /// <param name="_name">The player's name.</param>
 
-    public void SpawnPlayer(int _id, string _username, int _prefabId)
+    public void SpawnPlayer(int _id, string _username, int _prefabId, int _tableIndex)
     {
         GameObject _player;
         if (_id == Client.instance.myId)
@@ -55,7 +55,7 @@ public class GameManager : MonoBehaviour
    
         }
 
-        _player.GetComponent<PlayerManager>().Initialize(_id, _username);
+        _player.GetComponent<PlayerManager>().Initialize(_id, _username, _tableIndex);
         _player.GetComponent<PlayerManager>().chipTotal = startingChips; // temp hard code for giving chip total
         players.Add(_id, _player.GetComponent<PlayerManager>());
         if (_id != Client.instance.myId)

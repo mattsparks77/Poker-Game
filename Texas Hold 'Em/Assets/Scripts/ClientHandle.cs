@@ -28,11 +28,12 @@ public class ClientHandle : MonoBehaviour
     {
         int _id = _packet.ReadInt();
         int _prefabId = _packet.ReadInt();
+        int _tableIndex = _packet.ReadInt();
         string _username = _packet.ReadString();
         Vector3 _position = _packet.ReadVector3();
         Quaternion _rotation = _packet.ReadQuaternion();
 
-        GameManager.instance.SpawnPlayer(_id, _username, _prefabId);
+        GameManager.instance.SpawnPlayer(_id, _username, _prefabId, _tableIndex);
      
     }
 
